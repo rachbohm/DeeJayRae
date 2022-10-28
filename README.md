@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![schema](schema.png)
 
 ## API Documentation
 
@@ -272,7 +272,7 @@ Returns all the songs created by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /api/songs/current
+  * URL: /api/current/songs
   * Body: none
 
 * Successful Response
@@ -914,7 +914,7 @@ Returns all the playlists created by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /api/playlists/current
+  * URL: /api/current/playlists
   * Body: none
 
 * Successful Response
@@ -1195,7 +1195,7 @@ Returns all the Albums created by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /api/albums/current
+  * URL: /api/current/albums
   * Body: none
 
 * Successful Response
