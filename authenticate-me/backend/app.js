@@ -13,7 +13,6 @@ const isProduction = environment === 'production';
 const app = express();
 
 app.use(morgan('dev'));
-app.use(routes);
 
 app.use(cookieParser());
 app.use(express.json());
@@ -29,17 +28,19 @@ app.use(
   helmet.crossOriginResourcePolicy({
     policy: "cross-origin"
   })
-);
+  );
 
-// Set the _csrf token and create req.csrfToken method
-app.use(
-  csurf({
-    cookie: {
-      secure: isProduction,
-      sameSite: isProduction && "Lax",
-      httpOnly: true
-    }
-  })
-);
+  // Set the _csrf token and create req.csrfToken method
+  app.use(
+    csurf({
+      cookie: {
+        secure: isProduction,
+        sameSite: isProduction && "Lax",
+        httpOnly: true
+      }
+    })
+  );
+    
+    app.use(routes);
 
 module.exports = app;
