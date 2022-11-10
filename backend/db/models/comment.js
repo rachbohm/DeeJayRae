@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       );
       Comment.belongsTo(
         models.Song,
-        {foreignKey: 'id'}
+        {foreignKey: 'songId'}
       );
       // define association here
     }

@@ -53,8 +53,16 @@ module.exports = (sequelize, DataTypes) => {
       );
       User.hasMany(
         models.Song,
-        {foreignKey: 'userId', onDelete:'CASCADE', hooks:true}
-      )
+        { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true }
+      );
+      User.hasMany(
+        models.Playlist,
+        { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true }
+      );
+      User.hasMany(
+        models.Comment,
+        { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true }
+      );
       // define association here
     }
   }
