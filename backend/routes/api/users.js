@@ -37,7 +37,8 @@ router.post(
       }
     });
 
-    if (emailExists) {
+    if (emailExists.length) {
+      
       const err = new Error("User already exists");
       err.errors = [
         "User with that email already exists"
