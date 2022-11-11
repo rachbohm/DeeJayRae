@@ -1,8 +1,19 @@
 const express = require('express');
+const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Song, Album } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
+
+router.get('/current', requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const songs = await Song.findAll({
+    where: {
+      userId: user.id
+    }
+  });
+  return res.json(songs)
+})
 
 router.get('/', async (req, res) => {
   const songs = await Song.findAll();
@@ -17,11 +28,11 @@ router.post('/', async (req, res, next) => {
 
   if (!albumExists) {
     const err = new Error("Album id does not exist");
-      err.errors = [
-        "Album does not exist with the provided id"
-      ]
-      err.status = 404;
-      return next(err)
+    err.errors = [
+      "Album does not exist with the provided id"
+    ]
+    err.status = 404;
+    return next(err)
   };
 
   const newSong = await Song.create({
@@ -36,6 +47,7 @@ router.post('/', async (req, res, next) => {
   return res.json(
     newSong
   );
-})
+});
+
 
 module.exports = router;
