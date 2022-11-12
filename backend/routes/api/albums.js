@@ -1,9 +1,45 @@
 const express = require('express');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Album } = require('../../db/models');
+const { User, Album, Song } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
+
+router.get('/:albumId', async (req, res, next) => {
+  const albumId = req.params.albumId;
+  const targetAlbum = await Album.findAll({
+    where: {
+      id: albumId
+    },
+      include: [
+        {
+          model: User,
+
+          attributes: {
+            exclude: [
+              "email",
+              "hashedPassword",
+              "firstName",
+              "lastName",
+              "createdAt",
+              "updatedAt"
+            ]
+          },
+          as: 'Artist',
+        },
+        {
+          model: Song
+        }
+      ]
+  });
+  if (!targetAlbum.length) {
+    const err = new Error("Album not found")
+    err.status = 404;
+    err.errors = ["Album couldn't be found"];
+    return next(err)
+  }
+res.json(targetAlbum)
+})
 
 router.get('/current', requireAuth, async (req, res, next) => {
   const { user } = req;
