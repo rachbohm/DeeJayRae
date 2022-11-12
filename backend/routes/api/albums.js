@@ -4,6 +4,12 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
+
+router.get('/', async (req, res) => {
+  const allAlbums = await Album.findAll();
+  res.json({Albums: allAlbums})
+})
+
 router.post('/', async (req, res) => {
   const { user } = req;
 
