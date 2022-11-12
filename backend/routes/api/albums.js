@@ -68,7 +68,26 @@ router.post('/', async (req, res) => {
     previewImage: imageUrl
   })
 
-  res.json( newAlbum )
-})
+  res.json(newAlbum)
+});
+
+router.put('/:albumId', async (req, res, next) => {
+  const albumId = req.params.albumId;
+  const { title, description, imageUrl } = req.body;
+  const targetAlbum = await Album.findByPk(albumId);
+
+  if (!targetAlbum) {
+    const err = new Error("Album not found");
+    err.status = 404;
+    err.errors = ["Album does not exist with the specified id"];
+    return next(err)
+}
+
+  targetAlbum.title = title;
+  targetAlbum.description = description;
+  targetAlbum.previewImage = imageUrl;
+  res.json(targetAlbum);
+});
+
 
 module.exports = router;
