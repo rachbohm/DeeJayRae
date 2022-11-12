@@ -25,6 +25,41 @@ router.put('/:songId', requireAuth, async (req, res, next) => {
   return res.json(targetSong);
 })
 
+router.get('/:songId/comments', async (req, res, next) => {
+  const songId = req.params.songId;
+
+  const comments = await Comment.findAll({
+    where: {
+      songId
+    },
+    include: [
+      {
+        model: User,
+        attributes: {
+          exclude: [
+            "email",
+            "hashedPassword",
+            "firstName",
+            "lastName",
+            "createdAt",
+            "updatedAt",
+            "previewImage"
+          ]
+        }
+      }
+    ]
+  });
+
+  if (!comments.length) {
+    const err = new Error("Song not found")
+    err.status = 404;
+    err.errors = ["Song couldn't be found"];
+    return next(err)
+  }
+
+  res.json({Comments: comments})
+});
+
 router.get('/current', requireAuth, async (req, res, next) => {
   const { user } = req;
   const songs = await Song.findAll({
@@ -105,6 +140,7 @@ router.post('/:songId/comments', requireAuth, async (req, res, next) => {
   targetSong.addComment(newComment);
   res.json(newComment);
 });
+
 
 
 router.post('/', async (req, res, next) => {
