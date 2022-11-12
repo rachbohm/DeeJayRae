@@ -4,6 +4,7 @@ const usersRouter = require('./users.js');
 const songsRouter = require('./songs.js');
 const albumsRouter = require('./albums.js');
 const artistsRouter = require('./artists.js');
+const commentsRouter = require('./comments');
 const { restoreUser } = require("../../utils/auth.js");
 
 // Connect restoreUser middleware to the API router
@@ -20,6 +21,8 @@ router.use('/songs', songsRouter);
 router.use('/albums', albumsRouter);
 
 router.use('/artists', artistsRouter);
+
+router.use('/comments', commentsRouter);
 
 router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });
