@@ -1,6 +1,6 @@
 const express = require('express');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Song, Album } = require('../../db/models');
+const { User, Song, Album, Comment } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
@@ -81,6 +81,31 @@ router.get('/', async (req, res) => {
   const songs = await Song.findAll();
   res.json({ Songs: songs })
 });
+
+router.post('/:songId/comments', requireAuth, async (req, res, next) => {
+  const songId = req.params.songId;
+  const {body} = req.body;
+  const { user } = req;
+
+  const targetSong = await Song.findByPk(songId);
+
+  if (!targetSong) {
+    const err = new Error("Song not found")
+    err.status = 404;
+    err.errors = ["Song couldn't be found"];
+    return next(err)
+  };
+
+  const newComment = await Comment.create({
+    body,
+    userId: user.id,
+    songId
+  });
+
+  targetSong.addComment(newComment);
+  res.json(newComment);
+});
+
 
 router.post('/', async (req, res, next) => {
   const { user } = req;
