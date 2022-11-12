@@ -23,4 +23,25 @@ router.put('/:commentId', requireAuth, async (req, res, next) => {
 res.json(targetComment)
 });
 
+router.delete('/:commentId', requireAuth, async (req, res, next) => {
+  const commentId = req.params.commentId;
+  const { user } = req;
+
+  const doomedComment = await Comment.findByPk(commentId);
+
+  if (!doomedComment) {
+    const err = new Error("Comment not found");
+    err.status = 404;
+    err.errors = ["Comment does not exist with the specified comment id"];
+    return next(err)
+  };
+
+  await doomedComment.destroy();
+
+  res.json({
+    message: "Successfully deleted",
+    statusCode: res.statusCode
+  })
+})
+
 module.exports = router;
