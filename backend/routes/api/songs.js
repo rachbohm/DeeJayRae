@@ -5,6 +5,26 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
+router.put('/:songId', requireAuth, async (req, res, next) => {
+  const { songId } = req.params;
+  const { title, description, url, imageUrl } = req.body;
+  const targetSong = await Song.findByPk(songId);
+
+  if (!targetSong) {
+    const err = new Error("Song not found")
+    err.status = 404;
+    err.errors = ["Song couldn't be found"];
+    return next(err)
+  }
+
+  targetSong.title = title;
+  targetSong.description = description;
+  targetSong.url = url;
+  targetSong.previewImage = imageUrl;
+
+  return res.json(targetSong);
+})
+
 router.get('/current', requireAuth, async (req, res, next) => {
   const { user } = req;
   const songs = await Song.findAll({
