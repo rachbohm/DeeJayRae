@@ -102,7 +102,10 @@ module.exports = (sequelize, DataTypes) => {
       lastName: {
         type: DataTypes.STRING,
         allowNull: false
-      }
+      },
+      previewImage: {
+        type: DataTypes.STRING
+      },
     },
     {
       sequelize,
