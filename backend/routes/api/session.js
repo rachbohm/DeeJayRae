@@ -23,11 +23,29 @@ router.post(
   async (req, res, next) => {
     const { credential, password } = req.body;
 
+    if (!credential) {
+      const err = newError(
+        400,
+        'Validation error',
+        ['Email or username is required']);
+      return next(err);
+    };
+
+    if (!password) {
+      const err = newError(
+        400,
+        'Validation error',
+        ['Password is required']
+      )
+      return next(err)
+    }
+
     const user = await User.login({ credential, password });
 
     if (!user) {
-      const err = newError(401,
-        'Login failed',
+      const err = newError(
+        401,
+        'Invalid credentials',
         'The provided credentials were invalid.',
         ['The provided credentials were invalid.']);
       return next(err);
@@ -57,13 +75,13 @@ router.get(
   requireAuth,
   async (req, res) => {
     const { user } = req;
-    const token = await setTokenCookie(res, user);
-    user.dataValues.token = token;
+    // const token = await setTokenCookie(res, user);
+    // user.dataValues.token = token;
     if (user) {
-      return res.json({
-        user: user.toSafeObject(),
-        token
-      });
+      return res.json(
+        user.toSafeObject(),
+        // token
+      );
     } else return res.json({});
   }
 );
