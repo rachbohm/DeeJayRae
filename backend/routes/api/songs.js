@@ -111,7 +111,7 @@ router.get('/:songId', async (req, res, next) => {
   return res.json(song)
 });
 
-
+//get all songs
 router.get('/', async (req, res) => {
   const songs = await Song.findAll();
   res.json({ Songs: songs })
@@ -142,8 +142,8 @@ router.post('/:songId/comments', requireAuth, async (req, res, next) => {
 });
 
 
-
-router.post('/', async (req, res, next) => {
+//create a song for an album based on album id
+router.post('/', requireAuth, async (req, res, next) => {
   const { user } = req;
   const { title, description, url, imageUrl, albumId } = req.body;
 

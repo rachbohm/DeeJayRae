@@ -3,6 +3,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Album, Song } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const newError = require('../../utils/newError');
 const router = express.Router();
 
 router.get('/:albumId', async (req, res, next) => {
@@ -55,11 +56,19 @@ router.get('/', async (req, res) => {
   const allAlbums = await Album.findAll();
   res.json({Albums: allAlbums})
 })
-
-router.post('/', async (req, res) => {
+//create an album
+router.post('/', requireAuth, async (req, res, next) => {
   const { user } = req;
 
   const { title, description, imageUrl } = req.body;
+
+  if (!title) {
+    const err = newError(400,
+      "Album title is required",
+      "Validation error",
+      ["Album title is required"]);
+    return next(err);
+  }
 
   const newAlbum = await Album.create({
     userId: user.id,
@@ -70,23 +79,41 @@ router.post('/', async (req, res) => {
 
   res.json(newAlbum)
 });
+//edit an album
+const albumValidate = [
+  check('title')
+    .notEmpty()
+    .exists({checkFalsy: true})
+  .withMessage('Album title is required'),
+  handleValidationErrors
+];
 
-router.put('/:albumId', async (req, res, next) => {
+router.put('/:albumId', albumValidate, requireAuth, async (req, res, next) => {
   const albumId = req.params.albumId;
   const { title, description, imageUrl } = req.body;
+  const { user } = req;
+
   const targetAlbum = await Album.findByPk(albumId);
 
   if (!targetAlbum) {
     const err = new Error("Album not found");
     err.status = 404;
     err.errors = ["Album does not exist with the specified id"];
-    return next(err)
-}
+     next(err)
+  }
 
-  targetAlbum.title = title;
-  targetAlbum.description = description;
-  targetAlbum.previewImage = imageUrl;
-  res.json(targetAlbum);
+  if (targetAlbum.userId === user.id) {
+
+    targetAlbum.title = title;
+    targetAlbum.description = description;
+    targetAlbum.previewImage = imageUrl;
+    res.json(targetAlbum)
+  } else {
+    const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
+      'Current user is unauthorized'
+    ])
+    next(err);
+  }
 });
 
 

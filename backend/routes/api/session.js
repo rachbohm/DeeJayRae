@@ -16,29 +16,12 @@ const validateLogin = [
     .withMessage('Please provide a password.'),
   handleValidationErrors
 ];
-
+//log in
 router.post(
   '/',
   validateLogin,
   async (req, res, next) => {
     const { credential, password } = req.body;
-
-    if (!credential) {
-      const err = newError(
-        400,
-        'Validation error',
-        ['Email or username is required']);
-      return next(err);
-    };
-
-    if (!password) {
-      const err = newError(
-        400,
-        'Validation error',
-        ['Password is required']
-      )
-      return next(err)
-    }
 
     const user = await User.login({ credential, password });
 
@@ -69,20 +52,21 @@ router.delete(
   }
 );
 
+//get current user
 router.get(
   '/',
   restoreUser,
   requireAuth,
   async (req, res) => {
     const { user } = req;
-    // const token = await setTokenCookie(res, user);
-    // user.dataValues.token = token;
+    const token = await setTokenCookie(res, user);
+    user.dataValues.token = token;
+
     if (user) {
-      return res.json(
-        user.toSafeObject(),
-        // token
-      );
-    } else return res.json({});
+        return res.json(
+          user
+        );
+      } else return res.json({});
   }
 );
 

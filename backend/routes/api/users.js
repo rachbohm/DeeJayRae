@@ -23,6 +23,12 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
+  check('firstName')
+    .exists({ checkFalsy: true })
+    .withMessage('First Name is required'),
+  check('lastName')
+    .exists({ checkFalsy: true })
+  .withMessage('Last Name is required'),
   handleValidationErrors
 ];
 //sign up a user
@@ -43,7 +49,21 @@ router.post(
         "User already exists",
         "A user with the provided email address already exists",
         ["A user with the provided email address already exists"]);
-      return next(err);
+      next(err);
+    };
+
+    const usernameExists = await User.findAll({
+      where: {
+        username
+      }
+    });
+
+    if (usernameExists.length) {
+      const err = newError(403,
+        "User already exists",
+        "A user with the provided username already exists",
+        ["A user with the provided username already exists"]);
+       next(err);
     }
 
     const user = await User.signup({ email, username, password, firstName, lastName });
