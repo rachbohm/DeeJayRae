@@ -5,8 +5,9 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
-router.get('/:userId/albums', async (req, res, next) => {
-  const userId = req.params.userId;
+//get all albums of an artist from an id
+router.get('/:artistId/albums', async (req, res, next) => {
+  const userId = req.params.artistId;
   const artistAlbums = await Album.findAll({
     where: {
       userId: userId
@@ -15,9 +16,9 @@ router.get('/:userId/albums', async (req, res, next) => {
 
   const userExists = await User.findByPk(userId)
   if (!userExists) {
-    const err = new Error("User not found");
+    const err = new Error("Artist couldn't be found");
     err.status = 404;
-    err.errors = ["User does not exist with the specified artist id"];
+    err.errors = ["Artist couldn't be found"];
     return next(err)
   }
 

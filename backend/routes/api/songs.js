@@ -3,11 +3,15 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Song, Album, Comment } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const newError = require('../../utils/newError');
 const router = express.Router();
 
+//edit a song
 router.put('/:songId', requireAuth, async (req, res, next) => {
   const { songId } = req.params;
   const { title, description, url, imageUrl } = req.body;
+  const userId = req.user.id;
+
   const targetSong = await Song.findByPk(songId);
 
   if (!targetSong) {
@@ -17,14 +21,22 @@ router.put('/:songId', requireAuth, async (req, res, next) => {
     return next(err)
   }
 
-  targetSong.title = title;
-  targetSong.description = description;
-  targetSong.url = url;
-  targetSong.previewImage = imageUrl;
+  if (targetSong.userId === userId) {
+    targetSong.title = title;
+    targetSong.description = description;
+    targetSong.url = url;
+    targetSong.previewImage = imageUrl;
 
-  return res.json(targetSong);
+    return res.json(targetSong);
+  } else {
+    const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
+      'Current user is unauthorized'
+    ])
+    next(err);
+  }
 })
 
+//get all comments by song id
 router.get('/:songId/comments', async (req, res, next) => {
   const songId = req.params.songId;
 
@@ -51,15 +63,15 @@ router.get('/:songId/comments', async (req, res, next) => {
   });
 
   if (!comments.length) {
-    const err = new Error("Song not found")
+    const err = new Error("Song couldn't be found")
     err.status = 404;
     err.errors = ["Song couldn't be found"];
-    return next(err)
+     next(err)
   }
 
   res.json({Comments: comments})
 });
-
+//get all songs created by the current user
 router.get('/current', requireAuth, async (req, res, next) => {
   const { user } = req;
   const songs = await Song.findAll({
@@ -69,7 +81,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
   });
   return res.json(songs)
 });
-
+//get details of a song based on song id
 router.get('/:songId', async (req, res, next) => {
   const songId = req.params.songId;
   const song = await Song.findByPk(songId, {
@@ -117,15 +129,25 @@ router.get('/', async (req, res) => {
   res.json({ Songs: songs })
 });
 
-router.post('/:songId/comments', requireAuth, async (req, res, next) => {
+//create a comment for a song based on song id
+
+const validateComment = [
+  check('body')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Comment body text is required'),
+  handleValidationErrors
+];
+
+router.post('/:songId/comments', requireAuth, validateComment, async (req, res, next) => {
   const songId = req.params.songId;
-  const {body} = req.body;
+  const { body } = req.body;
   const { user } = req;
 
   const targetSong = await Song.findByPk(songId);
 
   if (!targetSong) {
-    const err = new Error("Song not found")
+    const err = new Error("Song couldn't be found")
     err.status = 404;
     err.errors = ["Song couldn't be found"];
     return next(err)
