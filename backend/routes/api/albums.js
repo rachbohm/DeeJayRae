@@ -6,6 +6,17 @@ const { handleValidationErrors } = require('../../utils/validation');
 const newError = require('../../utils/newError');
 const router = express.Router();
 
+//get all albums created by the current user
+router.get('/current', requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const userAlbums = await Album.findAll({
+    where: {
+      userId: user.id
+    }
+  });
+  return res.json({Albums: userAlbums})
+});
+
 //get details of an album from an id
 router.get('/:albumId', async (req, res, next) => {
   const albumId = req.params.albumId;
@@ -42,16 +53,6 @@ router.get('/:albumId', async (req, res, next) => {
   }
 res.json(targetAlbum)
 })
-//get all albums created by the current user
-router.get('/current', requireAuth, async (req, res, next) => {
-  const { user } = req;
-  const userAlbums = await Album.findAll({
-    where: {
-      userId: user.id
-    }
-  });
-  return res.json({Albums: userAlbums})
-});
 //get all albums
 router.get('/', async (req, res) => {
   const allAlbums = await Album.findAll();

@@ -1,6 +1,6 @@
 const express = require('express');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Song, Album } = require('../../db/models');
+const { User, Song, Album, Playlist } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const newError = require('../../utils/newError');
@@ -77,6 +77,23 @@ router.post(
   }
 );
 
+//get all playlists of an artist from an id
+router.get('/:artistId/playlists', async (req, res, next) => {
+  const artistId = req.params.artistId;
+  const artistPlaylists = await Playlist.findAll({
+    where: {
+      userId: artistId
+    }
+  });
+  if (!artistPlaylists.length) {
+    const err = new Error("Artist couldn't be found");
+    err.status = 404;
+    err.errors = ["Artist couldn't be found"];
+    return next(err)
+  }
+  res.json({Playlists: artistPlaylists})
+});
+
 //get all songs of an artist from an id
 router.get('/:artistId/songs', async (req, res, next) => {
   const artistId = req.params.artistId;
@@ -90,7 +107,7 @@ router.get('/:artistId/songs', async (req, res, next) => {
   if (!artistSongs.length) {
     const err = new Error("Artist couldn't be found");
     err.status = 404;
-    err.errors = ["Artists couldn't be found"];
+    err.errors = ["Artist couldn't be found"];
     return next(err)
   }
 
