@@ -18,7 +18,8 @@ module.exports = {
         onDelete: 'cascade'
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       previewImage: {
         type: Sequelize.STRING
