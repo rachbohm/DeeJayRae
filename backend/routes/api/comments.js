@@ -50,18 +50,25 @@ router.delete('/:commentId', requireAuth, async (req, res, next) => {
   const doomedComment = await Comment.findByPk(commentId);
 
   if (!doomedComment) {
-    const err = new Error("Comment not found");
+    const err = new Error("Comment couldn't be found");
     err.status = 404;
     err.errors = ["Comment does not exist with the specified comment id"];
-    return next(err)
+     next(err)
   };
 
-  await doomedComment.destroy();
+  if (doomedComment.userId == user.id) {
+    await doomedComment.destroy();
 
   res.json({
     message: "Successfully deleted",
     statusCode: res.statusCode
   })
+  } else {
+    const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
+      'Current user is unauthorized'
+    ])
+    next(err);
+  }
 })
 
 module.exports = router;
