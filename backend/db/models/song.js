@@ -46,6 +46,15 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Song',
+    scopes: {
+      noPlaylistSong: {
+        attributes: {
+          include:  ["id", "userId", "albumId", "title",
+                "description", "url", "previewImage", "createdAt", "updatedAt"],
+          exclude: ["PlaylistSong"]
+        }
+      }
+    }
   });
   return Song;
 };
