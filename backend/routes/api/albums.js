@@ -90,7 +90,6 @@ const albumValidate = [
   handleValidationErrors
 ];
 
-//edit an album
 router.put('/:albumId', albumValidate, requireAuth, async (req, res, next) => {
   const albumId = req.params.albumId;
   const { title, description, imageUrl } = req.body;
