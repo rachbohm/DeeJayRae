@@ -124,9 +124,33 @@ router.get('/:songId', async (req, res, next) => {
 });
 
 //get all songs
-router.get('/', async (req, res) => {
-  const songs = await Song.findAll();
-  res.json({ Songs: songs })
+const validateQueryParams = [
+  check('page')
+    .optional().isInt({ gt: -1 })
+    .withMessage('Page must be greater than or equal to 0'),
+  check('size')
+    .optional().isInt({ gt: -1 })
+    .withMessage('Size must be greater than or equal to 0'),
+  // check('createdAt')
+  //   .optional().isISO8601({})
+  //   .withMessage('createdAt is invalid'),
+  handleValidationErrors
+];
+router.get('/', validateQueryParams, async (req, res) => {
+
+  let page = parseInt(req.query.page) || 0;
+  let size = parseInt(req.query.size) || 20;
+
+  const pagination = {};
+  if (page >= 1 && size >= 1) {
+    pagination.limit = size;
+    pagination.offset = size * (page - 1);
+  }
+
+  const songs = await Song.findAll({
+    ...pagination
+  });
+  res.json({ Songs: songs, page, size })
 });
 
 //create a comment for a song based on song id
