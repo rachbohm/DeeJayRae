@@ -110,6 +110,17 @@ router.put('/:playlistId', requireAuth, validatePlaylist, async (req, res, next)
   }
 });
 
+//get all playlists created by the current user
+router.get('/current', requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const playlists = await Playlist.findAll({
+    where: {
+      userId: user.id
+    }
+  });
+  res.json({Playlists: playlists})
+})
+
 //get details of a playlist from an id
 router.get('/:playlistId', async (req, res, next) => {
   const playlistId = req.params.playlistId;
