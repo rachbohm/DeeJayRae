@@ -36,7 +36,7 @@ router.post('/:playlistId/songs', requireAuth, async (req, res, next) => {
 
   if (targetPlaylist.userId === user.id) {
 
-    targetPlaylist.addSong(targetSong);
+    await targetPlaylist.addSong(targetSong);
 
     const playlistSong = await PlaylistSong.findOne({
       where: {

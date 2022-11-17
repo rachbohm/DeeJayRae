@@ -7,7 +7,6 @@ const newError = require('../../utils/newError');
 const router = express.Router();
 
 //edit a comment
-
 const validateComment = [
   check('body')
     .exists({ checkFalsy: true })
@@ -52,7 +51,7 @@ router.delete('/:commentId', requireAuth, async (req, res, next) => {
   if (!doomedComment) {
     const err = new Error("Comment couldn't be found");
     err.status = 404;
-    err.errors = ["Comment does not exist with the specified comment id"];
+    err.errors = ["Comment couldn't be found"];
      return next(err)
   };
 

@@ -193,6 +193,33 @@ router.post('/', requireAuth, async (req, res, next) => {
     newSong
   );
 });
+//delete a song
+router.delete('/:songId', requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const { songId } = req.params;
 
+  const doomedSong = await Song.findByPk(songId);
+
+  if (!doomedSong) {
+    const err = new Error("Song couldn't be found");
+    err.status = 404;
+    err.errors = ["Song couldn't be found"];
+     return next(err)
+  }
+
+  if (doomedSong.userId === user.id) {
+    await doomedSong.destroy();
+
+    res.json({
+      message: "Successfully deleted",
+      statusCode: res.statusCode
+    })
+  } else {
+    const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
+      'Current user is unauthorized'
+    ])
+    return next(err);
+  }
+})
 
 module.exports = router;
