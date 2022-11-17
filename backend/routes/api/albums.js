@@ -117,6 +117,32 @@ router.put('/:albumId', albumValidate, requireAuth, async (req, res, next) => {
    return next(err);
   }
 });
+//delete an album
+router.delete('/:albumId', requireAuth, async (req, res, next) => {
+  const { albumId } = req.params;
+  const { user } = req;
 
+  const doomedAlbum = await Album.findByPk(albumId);
+
+  if (!doomedAlbum) {
+    const err = new Error("Album couldn't be found");
+    err.status = 404;
+    err.errors = ["Album couldn't be found"];
+    return next(err)
+  };
+
+  if (doomedAlbum.userId === user.id) {
+    await doomedAlbum.destroy();
+    res.json({
+      message: "Successfully deleted",
+      statusCode: res.statusCode
+    })
+  } else {
+    const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
+      'Current user is unauthorized'
+    ])
+    return next(err);
+  }
+});
 
 module.exports = router;
