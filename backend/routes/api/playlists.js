@@ -44,7 +44,7 @@ router.post('/:playlistId/songs', requireAuth, async (req, res, next) => {
         songId
       },
       attributes: {
-        include: ["id", "playlistId", "songId"],
+        include: ["id"],
         exclude: ["createdAt", "updatedAt"]
       }
     });
