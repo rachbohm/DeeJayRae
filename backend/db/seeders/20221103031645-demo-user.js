@@ -1,4 +1,5 @@
 'use strict';
+const { Album, Comment, Playlist, PlaylistSong, Song, User } = require('../models');
 
 /** @type {import('sequelize-cli').Migration} */
 
@@ -10,17 +11,26 @@ module.exports = {
       {
         email: 'demo@user.io',
         username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "Number",
+        lastName: "One",
+        previewImage: "pretty@pic.com"
       },
       {
         email: 'user1@user.io',
         username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2')
+        hashedPassword: bcrypt.hashSync('password2'),
+        firstName: "Number",
+        lastName: "Two",
+        previewImage: "pretty@pic.com"
       },
       {
         email: 'user2@user.io',
         username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3')
+        hashedPassword: bcrypt.hashSync('password3'),
+        firstName: 'Number',
+        lastName: "Three",
+        previewImage: "pretty@pic.com"
       }
     ], {});
   },
