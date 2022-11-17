@@ -6,16 +6,16 @@ const songSeeds = [
     albumId: 1,
     title: 'Gajumaru',
     description: 'meditative',
-    url: 'fack@fack.com',
-    previewImage: 'fack@fack.com'
+    url: 'fake@url.com',
+    previewImage: 'fake@url.com'
   },
   {
     userId: 1,
     albumId: 1,
     title: 'Reservoir',
     description: 'meditative',
-    url: 'fack@fack.com',
-    previewImage: 'fack@fack.com'
+    url: 'fake@url.com',
+    previewImage: 'fake@url.com'
   },
   {
     userId: 2,
