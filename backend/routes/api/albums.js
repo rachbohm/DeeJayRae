@@ -101,7 +101,7 @@ router.put('/:albumId', albumValidate, requireAuth, async (req, res, next) => {
     const err = new Error("Album not found");
     err.status = 404;
     err.errors = ["Album does not exist with the specified id"];
-     next(err)
+     return next(err)
   }
 
   if (targetAlbum.userId === user.id) {
@@ -114,7 +114,7 @@ router.put('/:albumId', albumValidate, requireAuth, async (req, res, next) => {
     const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
       'Current user is unauthorized'
     ])
-    next(err);
+   return next(err);
   }
 });
 

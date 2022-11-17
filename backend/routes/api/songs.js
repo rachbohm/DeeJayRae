@@ -32,7 +32,7 @@ router.put('/:songId', requireAuth, async (req, res, next) => {
     const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
       'Current user is unauthorized'
     ])
-    next(err);
+    return next(err);
   }
 })
 
@@ -66,7 +66,7 @@ router.get('/:songId/comments', async (req, res, next) => {
     const err = new Error("Song couldn't be found")
     err.status = 404;
     err.errors = ["Song couldn't be found"];
-     next(err)
+     return next(err)
   }
 
   res.json({Comments: comments})

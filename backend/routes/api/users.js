@@ -49,7 +49,7 @@ router.post(
         "User already exists",
         "A user with the provided email address already exists",
         ["A user with the provided email address already exists"]);
-      next(err);
+      return next(err);
     };
 
     const usernameExists = await User.findAll({

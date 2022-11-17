@@ -27,7 +27,7 @@ router.put('/:commentId', requireAuth, validateComment, async (req, res, next) =
     const err = new Error("Comment couldn't be found");
     err.status = 404;
     err.errors = ["Comment does not exist with the specified comment id"];
-    next(err)
+    return next(err)
   };
 
   if (targetComment.userId === userId) {
@@ -38,7 +38,7 @@ router.put('/:commentId', requireAuth, validateComment, async (req, res, next) =
     const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
       'Current user is unauthorized'
     ])
-    next(err);
+   return next(err);
   }
 });
 
@@ -53,7 +53,7 @@ router.delete('/:commentId', requireAuth, async (req, res, next) => {
     const err = new Error("Comment couldn't be found");
     err.status = 404;
     err.errors = ["Comment does not exist with the specified comment id"];
-     next(err)
+     return next(err)
   };
 
   if (doomedComment.userId == user.id) {
@@ -67,7 +67,7 @@ router.delete('/:commentId', requireAuth, async (req, res, next) => {
     const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
       'Current user is unauthorized'
     ])
-    next(err);
+    return next(err);
   }
 })
 

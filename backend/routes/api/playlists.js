@@ -81,6 +81,35 @@ router.post('/', requireAuth, validatePlaylist, async (req, res, next) => {
   res.json(newPlaylist)
 });
 
+//edit a playlist
+router.put('/:playlistId', requireAuth, validatePlaylist, async (req, res, next) => {
+  const { user } = req;
+  const { playlistId } = req.params;
+  const { name, imageUrl } = req.body;
+
+  const targetPlaylist = await Playlist.findByPk(playlistId);
+
+  if (!targetPlaylist) {
+    const err = new Error("Playlist couldn't be found")
+    err.status = 404;
+    err.errors = ["Playlist couldn't be found"];
+    return next(err)
+  };
+
+  if (targetPlaylist.userId === user.id) {
+
+    targetPlaylist.name = name;
+    targetPlaylist.previewImage = imageUrl;
+
+    res.json(targetPlaylist)
+  } else {
+    const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
+      'Current user is unauthorized'
+    ]);
+    return next(err)
+  }
+});
+
 //get details of a playlist from an id
 router.get('/:playlistId', async (req, res, next) => {
   const playlistId = req.params.playlistId;
