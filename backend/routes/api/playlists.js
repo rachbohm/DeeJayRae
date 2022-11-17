@@ -9,8 +9,8 @@ const router = express.Router();
 //add a song to a playlist based on the playlist's id
 router.post('/:playlistId/songs', requireAuth, async (req, res, next) => {
   const { user } = req;
-  const playlistId = req.params.playlistId;
-  const songId = req.body.songId;
+  const {playlistId} = req.params;
+  const {songId} = req.body;
 
   const targetPlaylist = await Playlist.findOne({
     where: {
