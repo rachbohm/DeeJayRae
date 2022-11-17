@@ -147,5 +147,33 @@ router.get('/:playlistId', async (req, res, next) => {
   };
   res.json(playlistDetails)
 });
+//delete a playlist
+router.delete('/:playlistId', requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const { playlistId } = req.params;
+
+  const doomedPlaylist = await Playlist.findByPk(playlistId);
+
+  if (!doomedPlaylist) {
+    const err = new Error("Playlist couldn't be found");
+    err.status = 404;
+    err.errors = ["Playlist couldn't be found"];
+     return next(err)
+  }
+
+  if (doomedPlaylist.userId === user.id) {
+    await doomedPlaylist.destroy();
+
+    res.json({
+      message: "Successfully deleted",
+      statusCode: res.statusCode
+    })
+  } else {
+    const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
+      'Current user is unauthorized'
+    ])
+    return next(err);
+  }
+})
 
 module.exports = router;
