@@ -48,7 +48,6 @@ router.post('/:playlistId/songs', requireAuth, async (req, res, next) => {
         exclude: ["createdAt", "updatedAt"]
       }
     });
-
     res.json(playlistSong)
   } else {
     const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
