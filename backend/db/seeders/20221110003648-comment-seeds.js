@@ -15,9 +15,16 @@ const commentSeeds = [
 ]
 
 /** @type {import('sequelize-cli').Migration} */
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Comments', commentSeeds, {})
+    options.tableName = 'Comments';
+    await queryInterface.bulkInsert(options, commentSeeds, {})
     /**
      * Add seed commands here.
      *
@@ -30,7 +37,8 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Comments', commentSeeds, {})
+    options.tableName = 'Comments';
+    await queryInterface.bulkDelete(options, commentSeeds, {})
     /**
      * Add commands to revert seed here.
      *

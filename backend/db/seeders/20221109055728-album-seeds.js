@@ -3,24 +3,30 @@ const { Album, Comment, Playlist, PlaylistSong, Song, User } = require('../model
 
 const albumSeeds = [
   {
-  userId: 1,
-  title: 'Pellucidity',
-  description: 'mellow and acoustic',
+    userId: 1,
+    title: 'Pellucidity',
+    description: 'mellow and acoustic',
     previewImage: 'fake@url.com'
-},
-{
-  userId: 2,
-  title: 'Pellucididoink',
-  description: 'shmellow and shmacoustic',
+  },
+  {
+    userId: 2,
+    title: 'Pellucididoink',
+    description: 'shmellow and shmacoustic',
     previewImage: 'fack@url.com'
-}
-
-]
+  }
+];
 
 /** @type {import('sequelize-cli').Migration} */
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Albums', albumSeeds, {})
+    options.tableName = 'Albums'
+    await queryInterface.bulkInsert(options, albumSeeds, {})
     /**
      * Add seed commands here.
      *
@@ -33,7 +39,8 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Albums', albumSeeds, {})
+    options.tableName = 'Albums'
+    await queryInterface.bulkDelete(options, albumSeeds, {})
     /**
      * Add commands to revert seed here.
      *

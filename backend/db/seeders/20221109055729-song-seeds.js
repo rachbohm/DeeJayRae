@@ -36,9 +36,16 @@ const songSeeds = [
 ]
 
 /** @type {import('sequelize-cli').Migration} */
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Songs', songSeeds, {})
+    options.tableName = 'Songs';
+    await queryInterface.bulkInsert(options, songSeeds, {})
     /**
      * Add seed commands here.
      *
@@ -51,7 +58,8 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Songs', songSeeds, {})
+    options.tableName = 'Songs';
+    await queryInterface.bulkDelete(options, songSeeds, {})
     /**
      * Add commands to revert seed here.
      *

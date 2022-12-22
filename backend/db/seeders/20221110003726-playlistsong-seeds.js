@@ -19,11 +19,17 @@ const playlistSongSeeds = [
     playlistId: 2,
     songId: 4
   }
-]
+];
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('PlaylistSongs', playlistSongSeeds, {})
+    options.tableName = 'PlaylistSongs';
+    await queryInterface.bulkInsert(options, playlistSongSeeds, {})
     /**
      * Add seed commands here.
      *
@@ -36,7 +42,8 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('PlaylistSongs', playlistSongSeeds, {})
+    options.tableName = 'PlaylistSongs'
+    await queryInterface.bulkDelete(options, playlistSongSeeds, {})
     /**
      * Add commands to revert seed here.
      *
