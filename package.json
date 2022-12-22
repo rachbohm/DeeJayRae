@@ -4,9 +4,26 @@
     "dev:backend": "npm install --prefix backend start",
     "sequelize": "npm run --prefix backend sequelize",
     "sequelize-cli": "npm run --prefix backend sequelize-cli",
-    "start": "npm start --prefix backend"
+    "start": "npm start --prefix backend",
+    "build": "npm run --prefix backend build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3"
-  }
+  },
+  "name": "repo",
+  "description": "## Database Schema Design",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rachbohm/SoundCloud.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rachbohm/SoundCloud/issues"
+  },
+  "homepage": "https://github.com/rachbohm/SoundCloud#readme"
 }
