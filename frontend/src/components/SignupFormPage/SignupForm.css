@@ -1,0 +1,15 @@
+form {
+  display: grid;
+  justify-content: center;
+  text-align: start;
+}
+
+label {
+  padding: 1px;
+  margin: 1px;
+  display: grid;
+}
+
+button {
+  margin: 1px;
+}

@@ -56,17 +56,16 @@ router.delete(
 router.get(
   '/',
   restoreUser,
-  requireAuth,
   async (req, res) => {
     const { user } = req;
-    const token = await setTokenCookie(res, user);
-    user.dataValues.token = token;
 
     if (user) {
+      const token = await setTokenCookie(res, user);
+      user.dataValues.token = token;
         return res.json(
           user
         );
-      } else return res.json({});
+      } else return res.json(null);
   }
 );
 
