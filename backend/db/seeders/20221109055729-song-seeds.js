@@ -6,32 +6,32 @@ const songSeeds = [
     albumId: 1,
     title: 'Gajumaru',
     description: 'meditative',
-    url: 'fake@url.com',
-    previewImage: 'fake@url.com'
+    url: 'fakeurl.com',
+    previewImage: 'https://f4.bcbits.com/img/a0050101651_10.jpg'
   },
   {
     userId: 1,
     albumId: 1,
     title: 'Reservoir',
     description: 'meditative',
-    url: 'fake@url.com',
-    previewImage: 'fake@url.com'
+    url: 'fakeurl.com',
+    previewImage: 'https://f4.bcbits.com/img/a0050101651_10.jpg'
   },
   {
     userId: 2,
     albumId: 2,
     title: 'Jagumaru',
     description: 'upsetting',
-    url: 'url@url.com',
-    previewImage: 'url@url.com'
+    url: 'url.com',
+    previewImage: 'https://f4.bcbits.com/img/a0050101651_10.jpg'
   },
   {
     userId: 2,
     albumId: 2,
     title: 'Veserroir',
     description: 'upsetting',
-    url: 'url@url.com',
-    previewImage: 'url@url.com'
+    url: 'url.com',
+    previewImage: 'https://f4.bcbits.com/img/a0050101651_10.jpg'
   }
 ]
 

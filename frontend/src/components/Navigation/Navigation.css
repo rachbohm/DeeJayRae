@@ -1,5 +1,26 @@
 li {
   display: flex;
-  flex-direction: column;
-  align-items: start;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 10px;
+  border: 2px solid #FF5500;
+  background-color: black;
+}
+
+.navLink {
+  border: 1px solid white;
+  padding: 3px;
+  margin: 5px;
+  text-decoration: none;
+  font-size: 8px;
+  font-family: "Lucida Grande";
+  color: white;
+  background-color: black;
+  border-radius: 10%;
+}
+
+.signup {
+  background-color: #FF5500;
+  color: white;
+  border: 1px solid #FF5500;
 }

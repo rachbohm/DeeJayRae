@@ -8,8 +8,13 @@ label {
   padding: 1px;
   margin: 1px;
   display: grid;
+  font-size: 12px;
+  font-family: "Lucida Grande";
 }
 
 button {
   margin: 1px;
+  background-color: rgb(255, 102, 0);
+  color: white;
+  font-size: 12px;
 }
