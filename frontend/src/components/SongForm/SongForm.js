@@ -28,12 +28,19 @@ export default function SongForm() {
       albumId
     };
 
-    // let newSong = await
-    dispatch(createSongThunk(payload));
-    // if (newSong) {
-    //   history.push(`/songs/${newSong.id}`);
-    // }
-  };
+     const newSong = await dispatch(createSongThunk(payload))
+      .then(() => {
+        setTitle('');
+        setDescription('');
+        setUrl('');
+        setImageUrl('');
+        setAlbumId('');
+        
+      });
+    console.log(newSong)
+      history.push(`/songs/${newSong.id}`)
+    }
+
 
   return sessionUser.id ? (
     <form className="add-song-form" onSubmit={handleSubmit}>

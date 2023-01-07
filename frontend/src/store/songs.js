@@ -25,12 +25,12 @@ export const createSongThunk = (payload) => async (dispatch) => {
   if (res.ok) {
     const song = await res.json();
     dispatch(addSongAction(song));
-    // return song;
+    return song;
   }
-  // else {
-  //   console.log('res not ok');
-  //   return;
-  // }
+  else {
+    console.log('res not ok');
+    return;
+  }
 };
 
 export const loadAllSongsThunk = () => async dispatch => {
