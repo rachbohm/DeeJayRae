@@ -4,9 +4,10 @@ img {
 }
 
 .songCard {
-  border: 1px solid white;
+  border: 1px solid black;
   padding: 3px;
   margin: 5px;
+  width: 100px;
   text-decoration: none;
   font-size: 8px;
   font-family: "Lucida Grande";
