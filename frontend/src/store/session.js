@@ -64,7 +64,7 @@ export const logout = () => async (dispatch) => {
 };
 
 
-const initialState = { user: null };
+const initialState = { user: {} };
 
 const sessionReducer = (state = initialState, action) => {
   let newState;
@@ -75,7 +75,7 @@ const sessionReducer = (state = initialState, action) => {
       return newState;
     case REMOVE_USER:
       newState = Object.assign({}, state);
-      newState.user = null;
+      newState.user = {};
       return newState;
     default:
       return state;

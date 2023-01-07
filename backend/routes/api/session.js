@@ -65,7 +65,7 @@ router.get(
         return res.json(
           user
         );
-      } else return res.json(null);
+      } else return res.json({});
   }
 );
 

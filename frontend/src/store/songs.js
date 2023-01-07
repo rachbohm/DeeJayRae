@@ -1,18 +1,19 @@
 import { csrfFetch } from "./csrf";
 
 const ADD_SONG = "songs/ADD_SONG";
-const GET_SONGS = "songs/GET_SONGS";
+const LOAD_SONGS = "songs/LOAD_SONGS";
 
+//ACTIONS
 const addSongAction = (song) => ({
   type: ADD_SONG,
   song
 });
 
-const getSongsAction = (songs) => ({
-  type: GET_SONGS,
+const loadSongsAction = (songs) => ({
+  type: LOAD_SONGS,
   songs
 });
-
+//THUNKS
 export const createSongThunk = (payload) => async (dispatch) => {
 
   const res = await csrfFetch('/api/songs', {
@@ -24,36 +25,37 @@ export const createSongThunk = (payload) => async (dispatch) => {
   if (res.ok) {
     const song = await res.json();
     dispatch(addSongAction(song));
-    return song;
-  } else {
-    console.log('res not ok')
+    // return song;
   }
+  // else {
+  //   console.log('res not ok');
+  //   return;
+  // }
 };
 
-export const getAllSongsThunk = () => async dispatch => {
+export const loadAllSongsThunk = () => async dispatch => {
   const res = await csrfFetch('/api/songs')
   if (res.ok) {
-    const songs = await res.json()
-    dispatch(getSongsAction(songs))
+    const songs = await res.json();
+    dispatch(loadSongsAction(songs))
     return songs
   }
 }
 
-export const getSongsHelper = state => Object.values(state.songsState.allSongs)
-
 const initialState = {
-  allSongs: {}
 }
 
 const songReducer = (state = initialState, action) => {
-  const newState = { ...state }
+  let newState;
   switch (action.type) {
     case ADD_SONG:
-      newState.allSongs[action.song.id] = action.song
+      newState = { ...state };
+      newState[action.song.id] = action.song;
       return newState;
-    case GET_SONGS:
+    case LOAD_SONGS:
+      newState = { ...state };
       action.songs.Songs.forEach((song) => {
-        newState.allSongs[song.id] = song;
+        newState[song.id] = song;
       })
       return newState;
     default:

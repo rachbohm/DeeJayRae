@@ -1,17 +1,20 @@
 import { createSongThunk } from "../../store/songs";
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-export default function AddSongForm({ user }) {
+export default function SongForm() {
+
+  const sessionUser = useSelector(state => state.session.user);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [url, setUrl] = useState('')
-  const [imageUrl, setImageUrl] = useState()
-  const [albumId, setAlbumId] = useState(null)
+  const [imageUrl, setImageUrl] = useState('')
+  const [albumId, setAlbumId] = useState('')
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
   const handleSubmit = async (e) => {
@@ -25,14 +28,16 @@ export default function AddSongForm({ user }) {
       albumId
     };
 
-    let newSong = await dispatch(createSongThunk(payload));
-    if (newSong) {
-      history.push(`/songs/${newSong.id}`);
-    }
+    // let newSong = await
+    dispatch(createSongThunk(payload));
+    // if (newSong) {
+    //   history.push(`/songs/${newSong.id}`);
+    // }
   };
 
-  return (
+  return sessionUser.id ? (
     <form className="add-song-form" onSubmit={handleSubmit}>
+      <label>Create New Song</label>
       <input
         type="text"
         value={title}
@@ -51,7 +56,7 @@ export default function AddSongForm({ user }) {
         onChange={(e) => setImageUrl(e.target.value)}
         placeholder="Image URL"
       />
-       <input
+      <input
         type="text"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
@@ -63,7 +68,7 @@ export default function AddSongForm({ user }) {
         onChange={(e) => setAlbumId(e.target.value)}
         placeholder="Album ID"
       />
-      <button type="submit">Create New Song</button>
+      <button type="submit">Submit</button>
     </form>
-  )
+  ) : null;
 }
