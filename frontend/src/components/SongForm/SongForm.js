@@ -1,21 +1,18 @@
 import { createSongThunk } from "../../store/songs";
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 export default function SongForm() {
 
   const sessionUser = useSelector(state => state.session.user);
 
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [url, setUrl] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [albumId, setAlbumId] = useState('')
-  const [hasSubmitted, setHasSubmitted] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,19 +25,15 @@ export default function SongForm() {
       albumId
     };
 
-     const newSong = await dispatch(createSongThunk(payload))
+    await dispatch(createSongThunk(payload))
       .then(() => {
         setTitle('');
         setDescription('');
         setUrl('');
         setImageUrl('');
         setAlbumId('');
-        
-      });
-    console.log(newSong)
-      history.push(`/songs/${newSong.id}`)
-    }
-
+    })
+  }
 
   return sessionUser.id ? (
     <form className="add-song-form" onSubmit={handleSubmit}>
