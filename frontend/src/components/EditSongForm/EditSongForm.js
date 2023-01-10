@@ -22,8 +22,6 @@ const EditSongForm = () => {
     const [description, setDescription] = useState(song.description)
     const [url, setUrl] = useState(song.url)
     const [imageUrl, setImageUrl] = useState(song.previewImage)
-    const [albumId, setAlbumId] = useState(song.albumId)
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,8 +30,7 @@ const EditSongForm = () => {
       title,
       description,
       url,
-      imageUrl,
-      albumId
+      imageUrl
     };
 
     await dispatch(editSongThunk(payload, songId))
@@ -69,12 +66,6 @@ const EditSongForm = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
-        />
-        <input
-          type="number"
-          value={albumId}
-          onChange={(e) => setAlbumId(e.target.value)}
-          placeholder="Album ID"
         />
         <button type="submit">Submit</button>
       </form>

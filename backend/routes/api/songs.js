@@ -26,7 +26,7 @@ router.put('/:songId', requireAuth, async (req, res, next) => {
     targetSong.description = description;
     targetSong.url = url;
     targetSong.previewImage = imageUrl;
-
+    await targetSong.save();
     return res.json(targetSong);
   } else {
     const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
