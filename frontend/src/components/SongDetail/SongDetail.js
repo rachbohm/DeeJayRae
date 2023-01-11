@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { getSingleSongThunk, deleteSongThunk } from '../../store/songs';
 import './SongDetail.css';
+import EditSongForm from '../EditSongForm/EditSongForm';
 
 const SongDetail = () => {
   const { songId } = useParams();
@@ -26,10 +27,6 @@ const SongDetail = () => {
     dispatch(deleteSongThunk(song.id))
   };
 
-  const editHandler = (songId) => {
-    history.push(`/songs/${song.id}/edit`)
-  }
-
   if (!song) return null;
 
   return (
@@ -46,7 +43,9 @@ const SongDetail = () => {
           <div>Description: {song.description}</div>
           <div>Url: {song.url}</div>
           {isOwner && <button onClick={deleteHandler}>Delete</button>}
-          {isOwner && <button onClick={editHandler}>Edit</button>}
+          {isOwner &&
+            <EditSongForm song={song} />
+          }
         </>
       )}
     </div>
