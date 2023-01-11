@@ -46,10 +46,7 @@ export const createSongThunk = (payload) => async (dispatch) => {
     dispatch(addSongAction(song));
     return song;
   }
-  else {
-    console.log('res not ok');
-    return;
-  }
+  return res;
 };
 
 export const loadAllSongsThunk = () => async dispatch => {

@@ -34,7 +34,7 @@ function App() {
           <Route path="/songs/:songId">
             <SongDetail />
           </Route>
-          <Route path="/songs">
+          <Route path="/">
             <SongForm />
             <SongList />
           </Route>

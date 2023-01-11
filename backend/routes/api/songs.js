@@ -66,10 +66,10 @@ router.get('/:songId/comments', async (req, res, next) => {
     const err = new Error("Song couldn't be found")
     err.status = 404;
     err.errors = ["Song couldn't be found"];
-     return next(err)
+    return next(err)
   }
 
-  res.json({Comments: comments})
+  res.json({ Comments: comments })
 });
 //get all songs created by the current user
 router.get('/current', requireAuth, async (req, res, next) => {
@@ -189,7 +189,31 @@ router.post('/:songId/comments', requireAuth, validateComment, async (req, res, 
 
 
 //create a song for an album based on album id
-router.post('/', requireAuth, async (req, res, next) => {
+const validateSong = [
+  check('title')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Title is required'),
+  check('url')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Song URL is required'),
+  check('description')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Description is required'),
+  check('albumId')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Album ID is required'),
+  check('imageUrl')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Image URL is required'),
+  handleValidationErrors
+];
+
+router.post('/', requireAuth, validateSong, async (req, res, next) => {
   const { user } = req;
   const { title, description, url, imageUrl, albumId } = req.body;
 
@@ -228,7 +252,7 @@ router.delete('/:songId', requireAuth, async (req, res, next) => {
     const err = new Error("Song couldn't be found");
     err.status = 404;
     err.errors = ["Song couldn't be found"];
-     return next(err)
+    return next(err)
   }
 
   if (doomedSong.userId === user.id) {
