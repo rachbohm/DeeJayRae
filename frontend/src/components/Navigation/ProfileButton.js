@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
+import { loadMySongsThunk } from "../../store/current";
+import { NavLink } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -28,6 +30,13 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
+  useEffect(() => {
+    dispatch(loadMySongsThunk())
+  }, [dispatch]);
+
+  let mySongs = useSelector(state => state.currentState);
+  let mySongsArr = Object.values(mySongs);
+
   return (
     <>
       <button onClick={openMenu}>
@@ -37,6 +46,15 @@ function ProfileButton({ user }) {
         <ul className="profile-dropdown">
           <li>{user.username}</li>
           <li>{user.email}</li>
+          <div>
+            My Songs:
+          {mySongsArr.map((song) => (
+            <NavLink to={`/songs/${song.id}`}>{song.title}</NavLink>
+          ))}
+          </div>
+          <div>My Comments:
+            
+          </div>
           <li>
             <button onClick={logout}>Log Out</button>
           </li>

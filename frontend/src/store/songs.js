@@ -30,7 +30,7 @@ const updateSongAction = (song) => ({
 const loadSongAction = (song) => ({
   type: LOAD_SONG,
   song
-})
+});
 
 //THUNKS
 export const createSongThunk = (payload) => async (dispatch) => {
