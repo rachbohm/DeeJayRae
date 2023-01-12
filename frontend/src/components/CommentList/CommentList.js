@@ -10,7 +10,7 @@ const CommentList = ({song}) => {
 
   useEffect(() => {
     dispatch(loadAllCommentsThunk(song.id))
-  }, [dispatch, song]);
+  }, [dispatch, song.id]);
 
   let comments = useSelector(state => state.commentsState);
   let commentsArr = Object.values(comments);

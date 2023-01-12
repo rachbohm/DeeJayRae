@@ -16,20 +16,10 @@ const loadCommentsAction = (comments) => ({
   comments
 });
 
-// const removeSongAction = (songId) => ({
-//   type: REMOVE_SONG,
-//   songId
-// });
-
-// const updateSongAction = (song) => ({
-//   type: UPDATE_SONG,
-//   song
-// });
-
-// const loadSongAction = (song) => ({
-//   type: LOAD_SONG,
-//   song
-// })
+const removeCommentAction = (commentId) => ({
+  type: REMOVE_COMMENT,
+  commentId
+});
 
 //THUNKS
 export const createCommentThunk = (songId, payload) => async (dispatch) => {
@@ -57,41 +47,17 @@ export const loadAllCommentsThunk = (songId) => async dispatch => {
   }
 };
 
-// export const deleteSongThunk = (songId) => async dispatch => {
-//   const res = await csrfFetch(`/api/songs/${songId}`, {
-//     method: 'DELETE'
-//   });
+export const deleteCommentThunk = (commentId) => async dispatch => {
+  const res = await csrfFetch(`/api/comments/${commentId}`, {
+    method: 'DELETE'
+  });
 
-//   if (res.ok) {
-//     const data = await res.json();
-//     window.alert("Please confirm you want to delete this song.")
-//     dispatch(removeSongAction(songId))
-//   }
-// };
-
-// export const editSongThunk = (payload, id) => async (dispatch) => {
-
-//   const res = await csrfFetch(`/api/songs/${id}`, {
-//     method: "PUT",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(payload)
-//   });
-
-//   if (res.ok) {
-//     const song = await res.json();
-//     console.log(song)
-//     dispatch(updateSongAction(song));
-//   }
-// };
-
-// export const getSingleSongThunk = (id) => async (dispatch) => {
-//   const res = await csrfFetch(`/api/songs/${id}`);
-
-//   if (res.ok) {
-//     const song = await res.json();
-//     return dispatch(loadSongAction(song))
-//   }
-// }
+  if (res.ok) {
+    const data = await res.json();
+    window.alert("Please confirm you want to delete this comment.")
+    dispatch(removeCommentAction(commentId))
+  }
+};
 
 const initialState = {
 }
@@ -104,24 +70,15 @@ const commentReducer = (state = initialState, action) => {
       newState[action.comment.id] = action.comment;
       return newState;
     case LOAD_COMMENTS:
-      newState = { ...state };
+      newState = { };
       action.comments.Comments.forEach((comment) => {
         newState[comment.id] = comment;
       })
-
       return newState;
-    // case REMOVE_SONG:
-    //   newState = { ...state };
-    //   delete newState[action.songId];
-    //   return newState;
-    // case UPDATE_SONG:
-    //   newState = { ...state }
-    //   newState[action.song.id] = action.song
-    //   return newState;
-    // case LOAD_SONG:
-    //   newState = { ...state };
-    //   newState[action.song.id] = action.song;
-    //   return newState;
+    case REMOVE_COMMENT:
+      newState = { ...state };
+      delete newState[action.commentId];
+      return newState;
     default:
       return state;
   };

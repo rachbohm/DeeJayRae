@@ -5,13 +5,33 @@ const commentSeeds = [
   {
     userId: 1,
       songId: 1,
-    body: "I like this song"
+    body: "Seeded comment 1"
+  },
+  {
+    userId: 2,
+    songId: 1,
+    body: "Seeded comment 2"
+  },
+  {
+    userId: 2,
+    songId: 2,
+    body: "Seeded"
+  },
+  {
+    userId: 1,
+    songId: 3,
+    body: "Seeded comment 3"
   },
   {
     userId: 2,
     songId: 3,
-    body: "I hate this song"
-  }
+    body: "Seeded comment 4"
+  },
+  {
+    userId: 2,
+    songId: 4,
+    body: "Seeded"
+  },
 ]
 
 /** @type {import('sequelize-cli').Migration} */
