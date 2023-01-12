@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { getSingleSongThunk, deleteSongThunk } from '../../store/songs';
 import './SongDetail.css';
 import EditSongForm from '../EditSongForm/EditSongForm';
+import CommentList from '../CommentList/CommentList';
 
 const SongDetail = () => {
   const { songId } = useParams();
@@ -46,6 +47,7 @@ const SongDetail = () => {
           {isOwner &&
             <EditSongForm song={song} />
           }
+          <CommentList song={song}/>
         </>
       )}
     </div>

@@ -65,7 +65,7 @@ export const deleteSongThunk = (songId) => async dispatch => {
 
   if (res.ok) {
     const data = await res.json();
-    console.log(data)
+    window.alert("Please confirm you want to delete this song.")
     dispatch(removeSongAction(songId))
   }
 };
