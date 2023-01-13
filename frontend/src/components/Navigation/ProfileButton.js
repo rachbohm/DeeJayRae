@@ -40,7 +40,7 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={openMenu}>
-      <i className="fa-solid fa-user"></i>
+      <i className="fa-regular fa-user"></i>
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
@@ -49,11 +49,11 @@ function ProfileButton({ user }) {
           <div>
             My Songs:
           {mySongsArr.map((song) => (
-            <NavLink to={`/songs/${song.id}`}>{song.title}</NavLink>
+            <NavLink key={song.id} className='my-song-title' to={`/songs/${song.id}`}>{song.title}</NavLink>
           ))}
           </div>
           <div>My Comments:
-            
+
           </div>
           <li>
             <button onClick={logout}>Log Out</button>
