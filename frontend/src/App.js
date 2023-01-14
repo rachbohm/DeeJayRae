@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import SongForm from "./components/SongForm/SongForm";
 import SongList from "./components/SongList/SongList";
 import SongDetail from "./components/SongDetail/SongDetail";
+import About from "./components/About/About";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/">
             <SongForm />
             <SongList />
+            <About />
           </Route>
         </Switch>
       )}
