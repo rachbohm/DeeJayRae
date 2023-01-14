@@ -9,6 +9,7 @@ import CommentList from '../CommentList/CommentList';
 const SongDetail = () => {
   const { songId } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getSingleSongThunk(songId))
@@ -24,7 +25,8 @@ const SongDetail = () => {
   }
 
   const deleteHandler = () => {
-    dispatch(deleteSongThunk(song.id))
+    dispatch(deleteSongThunk(song.id));
+    history.push('/')
   };
 
   if (!song) return null;
