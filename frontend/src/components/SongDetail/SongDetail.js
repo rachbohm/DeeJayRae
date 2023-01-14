@@ -25,8 +25,9 @@ const SongDetail = () => {
   }
 
   const deleteHandler = () => {
-    dispatch(deleteSongThunk(song.id));
-    history.push('/')
+    dispatch(deleteSongThunk(song.id)).then(() => {
+      history.push('/')
+    })
   };
 
   if (!song) return null;
