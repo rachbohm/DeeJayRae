@@ -6,13 +6,25 @@ const albumSeeds = [
     userId: 1,
     title: 'Pellucidity',
     description: 'mellow and acoustic',
-    previewImage: 'fake@url.com'
+    previewImage: 'fakeurl.com'
   },
   {
     userId: 2,
-    title: 'Pellucididoink',
-    description: 'shmellow and shmacoustic',
-    previewImage: 'fack@url.com'
+    title: 'Mink Car',
+    description: 'quirky rock',
+    previewImage: 'fake.com'
+  },
+  {
+    userId: 1,
+    title: 'Extreme II',
+    description: 'soft rock',
+    previewImage: 'fake.com'
+  },
+  {
+    userId: 2,
+    title: 'Solitude/Solitaire',
+    description: 'strong rock',
+    previewImage: 'fake.com'
   }
 ];
 

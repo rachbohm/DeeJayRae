@@ -16,15 +16,15 @@ const SongList = () => {
   let songsArr = Object.values(songs);
 
   return (
-    <>
-      <div>SongList</div>
-      <div className="landingPage">
+    <div className="landingPage">
+      <div className="song-list-intro">Check out our free songs below</div>
+      <div className="songList">
         {songsArr.map((song) => (
           //passing in each song as a prop to be used in SongCard
           <SongCard key={song.id} song={song} />
         ))}
       </div>
-    </>
+    </div>
   )
 }
 

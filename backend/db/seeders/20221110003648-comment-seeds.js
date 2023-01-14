@@ -5,32 +5,32 @@ const commentSeeds = [
   {
     userId: 1,
       songId: 1,
-    body: "Seeded comment 1"
+    body: "Love listening to this while out for a walk in the woods."
   },
   {
     userId: 2,
     songId: 1,
-    body: "Seeded comment 2"
+    body: "One of my favorite songs for holding a wall sit."
   },
   {
     userId: 2,
     songId: 2,
-    body: "Seeded"
+    body: "Some great lines in this one"
   },
   {
     userId: 1,
     songId: 3,
-    body: "Seeded comment 3"
+    body: "One hit wonder"
   },
   {
     userId: 2,
     songId: 3,
-    body: "Seeded comment 4"
+    body: "Sounds like the Beatles"
   },
   {
     userId: 2,
     songId: 4,
-    body: "Seeded"
+    body: "Makes me want to go practice my kung fu."
   },
 ]
 

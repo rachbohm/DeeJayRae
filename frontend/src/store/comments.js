@@ -70,7 +70,7 @@ const commentReducer = (state = initialState, action) => {
       newState[action.comment.id] = action.comment;
       return newState;
     case LOAD_COMMENTS:
-      newState = { };
+      newState = {};
       action.comments.Comments.forEach((comment) => {
         newState[comment.id] = comment;
       })

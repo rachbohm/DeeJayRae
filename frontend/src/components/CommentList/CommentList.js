@@ -5,7 +5,7 @@ import { loadAllCommentsThunk } from '../../store/comments';
 import CommentCard from '../CommentCard/CommentCard';
 import CommentForm from '../CommentForm/CommentForm';
 
-const CommentList = ({song}) => {
+const CommentList = ({ song }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,12 +14,15 @@ const CommentList = ({song}) => {
 
   let comments = useSelector(state => state.commentsState);
   let commentsArr = Object.values(comments);
+  const filteredComments = commentsArr.filter(comment => { return comment.songId === song.id });
 
   return (
-    <div> Comments
-      <CommentForm song={song} />
+    <div className="comment-list-container">
       <div>
-        {commentsArr.map((comment) => (
+        <CommentForm song={song} />
+      </div>
+      <div>
+        {filteredComments.map((comment) => (
           <CommentCard key={comment.id} comment={comment} />
         ))}
       </div>

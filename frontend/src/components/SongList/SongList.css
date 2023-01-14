@@ -1,0 +1,13 @@
+.songList {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.song-list-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+}

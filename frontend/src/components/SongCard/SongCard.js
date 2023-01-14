@@ -5,14 +5,14 @@ import { NavLink } from 'react-router-dom';
 import EditSongForm from '../EditSongForm/EditSongForm';
 
 const SongCard = ({ song }) => {
-  const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user);
+  // const dispatch = useDispatch();
+  // const sessionUser = useSelector(state => state.session.user);
 
-  const isOwner = sessionUser.id === song.userId;
+  // const isOwner = sessionUser.id === song.userId;
 
-  const deleteHandler = () => {
-    dispatch(deleteSongThunk(song.id))
-  }
+  // const deleteHandler = () => {
+  //   dispatch(deleteSongThunk(song.id))
+  // }
 
   return (
     <div className="songCard">
@@ -21,9 +21,9 @@ const SongCard = ({ song }) => {
       <NavLink className='song-title' to={`/songs/${song.id}`}>
         {song.title}
       </NavLink>
-      <div>Artist: {song.userId}</div>
-      {isOwner && <button onClick={deleteHandler}>Delete</button>}
-  
+      <div>Artist ID: {song.userId}</div>
+      {/* {isOwner && <button onClick={deleteHandler}>Delete</button>} */}
+
     </div>
   )
 }

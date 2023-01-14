@@ -1,0 +1,12 @@
+
+.profile-dropdown {
+  background-color: white;
+  padding: 5px;
+  font-size: 8px;
+}
+
+.song-list {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}

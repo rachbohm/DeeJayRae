@@ -30,13 +30,12 @@ const CommentForm = ({ song }) => {
   };
 
   return sessionUser.id ? (
-    <div>CommentForm
+    <div>
       {errors.length > 0 && errors.map((error, i) => {
        return <div key={i}>{error}</div>
       })}
       <form className="add-comment-form" onSubmit={handleSubmit}>
-        <label>Write a Comment</label>
-        <input
+        <input className="comment-input"
           type="text"
           value={body}
           onChange={(e) => setBody(e.target.value)}

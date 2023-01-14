@@ -5,6 +5,7 @@
   align-items: center;
   padding: 10px;
   border: 2px solid #FF5500;
+  margin: 10px;
   background-color: black;
 }
 
@@ -29,4 +30,10 @@
 .logo {
   color: white;
   font-size: 10pt;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }

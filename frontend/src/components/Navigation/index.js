@@ -24,7 +24,7 @@ function Navigation({ isLoaded }){
   return (
     <div className="nav-bar-container">
       <div className="logo">
-        <i class="fa-brands fa-soundcloud"> ClonedCloud</i>
+        <i className="fa-brands fa-soundcloud"> ClonedCloud</i>
       </div>
       <div className="nav-right">
         <NavLink className="navLink" exact to="/">Home</NavLink>

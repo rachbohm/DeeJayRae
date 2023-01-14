@@ -11,27 +11,27 @@ const songSeeds = [
   },
   {
     userId: 1,
-    albumId: 1,
-    title: 'Reservoir',
-    description: 'meditative',
+    albumId: 2,
+    title: 'My Man',
+    description: 'thought-provoking',
     url: 'fakeurl.com',
-    previewImage: 'https://f4.bcbits.com/img/a0050101651_10.jpg'
+    previewImage: 'https://upload.wikimedia.org/wikipedia/en/c/cb/TheyMightBeGiantsMinkCar.jpg'
   },
   {
     userId: 2,
-    albumId: 2,
-    title: 'Jagumaru',
-    description: 'upsetting',
+    albumId: 3,
+    title: 'More Than Words',
+    description: 'peaceful love song',
     url: 'url.com',
-    previewImage: 'https://f4.bcbits.com/img/a0050101651_10.jpg'
+    previewImage: 'https://upload.wikimedia.org/wikipedia/en/2/25/More_than_words.jpg'
   },
   {
     userId: 2,
-    albumId: 2,
-    title: 'Veserroir',
-    description: 'upsetting',
+    albumId: 4,
+    title: 'Glory of Love',
+    description: 'strong and powerful',
     url: 'url.com',
-    previewImage: 'https://f4.bcbits.com/img/a0050101651_10.jpg'
+    previewImage: 'https://lastfm.freetls.fastly.net/i/u/500x500/17c0d7fda8e9d8e7b1f7f6094b45980a.jpg'
   }
 ]
 

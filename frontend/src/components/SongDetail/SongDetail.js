@@ -9,7 +9,6 @@ import CommentList from '../CommentList/CommentList';
 const SongDetail = () => {
   const { songId } = useParams();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(getSingleSongThunk(songId))
@@ -32,22 +31,26 @@ const SongDetail = () => {
 
   return (
 
-    <div>SongDetail
+    <div className="song-detail-container">
 
       {song && (
         <>
-          <img src={song.previewImage} />
-          <div>Title: {song.title}</div>
-          <div>Song ID: {song.id}</div>
-          <div>Artist ID: {song.userId}</div>
-          <div>Album ID: {song.albumId}</div>
-          <div>Description: {song.description}</div>
-          <div>Url: {song.url}</div>
-          {isOwner && <button onClick={deleteHandler}>Delete</button>}
-          {isOwner &&
-            <EditSongForm song={song} />
-          }
-          <CommentList song={song}/>
+          <div className="song-detail">
+            <img src={song.previewImage} />
+            <div>Title: {song.title}</div>
+            <div>Song ID: {song.id}</div>
+            <div>Artist ID: {song.userId}</div>
+            <div>Album ID: {song.albumId}</div>
+            <div>Description: {song.description}</div>
+            <div>Url: {song.url}</div>
+            {isOwner && <button className="delete-button" onClick={deleteHandler}>Delete</button>}
+          </div>
+          <div className='edit-song-form'>
+            {isOwner &&
+              <EditSongForm song={song} />
+            }
+          </div>
+          <CommentList song={song} />
         </>
       )}
     </div>
