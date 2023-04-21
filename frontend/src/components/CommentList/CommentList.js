@@ -14,7 +14,7 @@ const CommentList = ({ song }) => {
 
   let comments = useSelector(state => state.commentsState);
   let commentsArr = Object.values(comments);
-  const filteredComments = commentsArr.filter(comment => { return comment.songId === song.id });
+  const filteredComments = commentsArr.filter(comment => { return comment.songId == song.id });
 
   return (
     <div className="comment-list-container">
