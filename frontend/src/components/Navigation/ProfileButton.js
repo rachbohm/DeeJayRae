@@ -39,27 +39,30 @@ function ProfileButton({ user }) {
   let mySongsArr = Object.values(mySongs);
 
   return (
-    <>
-      <button onClick={openMenu}>
-      <i className="fa-regular fa-user"></i>
+    <div className="profile-button-container">
+      <button className="profile-button" onClick={openMenu}>
+        <i className="fa-regular fa-user"></i>
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
+          <li className="profile-info">{user.username}</li>
+          <li className="profile-info">{user.email}</li>
           <div className="song-list">
-            My Songs:
-          {mySongsArr.map((song) => (
-            <NavLink key={song.id} className='my-song-title' to={`/songs/${song.id}`}>{song.title}</NavLink>
-          ))}
+            <span className="song-list-title">My Songs:</span>
+            {mySongsArr.map((song) => (
+              <NavLink key={song.id} className="my-song-title" to={`/songs/${song.id}`}>
+                {song.title}
+              </NavLink>
+            ))}
           </div>
           <li>
-            <button onClick={logout}>Log Out</button>
+            <button className="logout-button" onClick={logout}>Log Out</button>
           </li>
         </ul>
       )}
-    </>
+    </div>
   );
+
 }
 
 export default ProfileButton;

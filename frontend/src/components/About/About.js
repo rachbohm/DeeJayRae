@@ -4,9 +4,18 @@ import "./About.css";
 const About = () => {
 
   return (
-    <footer>
-      <a href="https://github.com/rachbohm"> Find me on Github</a>
-    </footer>
+    <div className='footer-container'>
+      <footer className="footer">
+        <li className="rachel-box">Rachel Bohmbach
+          <a href="https://github.com/rachbohm" target="_blank">
+            <i className="fa-brands fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/rachel-bohmbach-46a04621b/" target="_blank">
+            <i className="fa-brands fa-linkedin"></i>
+          </a>
+        </li>
+      </footer>
+    </div>
   )
 }
 

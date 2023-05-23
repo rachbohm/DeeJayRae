@@ -1,12 +1,68 @@
+.profile-button-container {
+  position: relative;
+}
+
+.profile-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-button i {
+  font-size: 14pt;
+}
 
 .profile-dropdown {
-  background-color: white;
-  padding: 5px;
-  font-size: 8px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #222;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  color: white;
+  z-index: 1;
+  width: 150px;
+  list-style-type: none;
+}
+
+.profile-info {
+  margin-bottom: 5px;
 }
 
 .song-list {
   display: flex;
   flex-direction: column;
   padding: 10px;
+  border: 1px solid #FF5500;
+  margin: 10px;
+}
+
+.song-list-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.my-song-title {
+  color: white;
+  text-decoration: none;
+  margin-bottom: 2px;
+}
+
+.my-song-title:hover {
+  color: #FF5500;
+}
+
+.logout-button {
+  background-color: #FF5500;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.logout-button:hover {
+  background-color: #FF3D00;
 }

@@ -24,7 +24,9 @@ function Navigation({ isLoaded }){
   return (
     <div className="nav-bar-container">
       <div className="logo">
-        <i className="fa-brands fa-soundcloud"> ClonedCloud</i>
+        <NavLink className="logo-link" exact to="/">
+          <i className="fa-brands fa-soundcloud"></i>ClonedCloud
+        </NavLink>
       </div>
       <div className="nav-right">
         <NavLink className="navLink" exact to="/">Home</NavLink>
@@ -32,6 +34,7 @@ function Navigation({ isLoaded }){
       </div>
     </div>
   );
+
 }
 
 export default Navigation;

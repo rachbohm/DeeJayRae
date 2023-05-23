@@ -7,6 +7,8 @@ const CommentForm = ({ song }) => {
 
   const sessionUser = useSelector(state => state.session.user);
 
+  const notOwner = sessionUser.id !== song.userId;
+
   const dispatch = useDispatch();
 
   const [body, setBody] = useState('');
@@ -29,7 +31,7 @@ const CommentForm = ({ song }) => {
       })
   };
 
-  return sessionUser.id ? (
+  return sessionUser.id && notOwner ? (
     <div>
       {errors.length > 0 && errors.map((error, i) => {
        return <div key={i}>{error}</div>

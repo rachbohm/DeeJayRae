@@ -1,8 +1,30 @@
-footer {
+/* .footer-container {
+  position: relative;
+} */
+
+.footer {
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  text-decoration: none;
-  text-align: center;
-  font-size: 10pt;
+  background-color: #e7e5e5cc;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.footer li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer a {
+  margin: 10px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #222;
 }
