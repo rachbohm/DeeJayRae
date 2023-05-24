@@ -11,9 +11,7 @@ function LoginFormPage() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser.id) return (
-    <Redirect to="/" />
-  );
+  if (sessionUser.id) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,14 +23,15 @@ function LoginFormPage() {
       });
   };
 
-  const handleSubmitDemo = (e) => {
+  const handleDemoLogin = (e) => {
     e.preventDefault();
-    <Redirect to="/" />
-    return dispatch(sessionActions.demoLoginThunk())
-  }
+    setCredential("Demo-lition");
+    setPassword("password");
+  };
 
   return (
     <div className="forms-container">
+      <h1>Log In</h1>
       <form onSubmit={handleSubmit} className="login-form">
         <ul>
           {errors.map((error, idx) => (
@@ -62,15 +61,14 @@ function LoginFormPage() {
         <button type="submit" className="login-button">
           Log In
         </button>
-      </form>
-      <form onSubmit={handleSubmitDemo} className="demo-login-form">
-        <button type="submit" className="demo-login-button">
+        <h3>--OR--</h3>
+        <button onClick={handleDemoLogin} className="demo-login-button">
           Demo Login
         </button>
       </form>
+
     </div>
   );
-
 }
 
 export default LoginFormPage;
