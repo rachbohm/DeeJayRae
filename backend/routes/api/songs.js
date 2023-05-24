@@ -89,16 +89,16 @@ router.get('/:songId', async (req, res, next) => {
       {
         model: User,
 
-        attributes: {
-          exclude: [
-            "email",
-            "hashedPassword",
-            "firstName",
-            "lastName",
-            "createdAt",
-            "updatedAt"
-          ]
-        },
+        // attributes: {
+        //   exclude: [
+        //     "email",
+        //     "hashedPassword",
+        //     "firstName",
+        //     "lastName",
+        //     "createdAt",
+        //     "updatedAt"
+        //   ]
+        // },
         as: 'Artist',
       },
       {

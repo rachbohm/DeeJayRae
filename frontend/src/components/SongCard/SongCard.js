@@ -10,8 +10,8 @@ const SongCard = ({ song }) => {
         <img src={song.previewImage} />
         {song.title}
         <div className="song-artist">
-          <div>
-        </div>Artist: {song.Artist.firstName} {song.Artist.lastName}</div>
+          Artist: {song.Artist.firstName} {song.Artist.lastName}
+        </div>
       </NavLink>
     </div>
   )

@@ -33,32 +33,33 @@ const SongDetail = () => {
   if (!song) return null;
 
   return (
-
     <div className="song-detail-container">
-
       {song && (
         <>
           <div className="song-detail">
-            <img src={song.previewImage} />
+            <img src={song.previewImage} alt="Song Preview" />
             <div>Title: {song.title}</div>
             <div>Song ID: {song.id}</div>
-            <div>Artist ID: {song.userId}</div>
+            <div>Artist: {song.Artist.firstName} {song.Artist.lastName}</div>
             <div>Album ID: {song.albumId}</div>
             <div>Description: {song.description}</div>
             <div>Url: {song.url}</div>
-            {isOwner && <button className="delete-button" onClick={deleteHandler}>Delete</button>}
+            {isOwner && (
+              <button className="delete-button" onClick={deleteHandler}>
+                Delete
+              </button>
+            )}
           </div>
-          <div className='edit-song-form'>
-            {isOwner &&
-              <EditSongForm song={song} />
-            }
+          <div className="edit-song-form">
+            {isOwner && <EditSongForm song={song} />}
           </div>
-          <CommentList song={song} />
+          <div className="comment-list">
+            <CommentList song={song} />
+          </div>
         </>
       )}
     </div>
-
-  )
+  );
 }
 
 export default SongDetail;
