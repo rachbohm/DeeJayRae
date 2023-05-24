@@ -28,11 +28,13 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <Route path="/songs/new">
+            <SongForm />
+          </Route>
           <Route path="/songs/:songId">
             <SongDetail />
           </Route>
           <Route path="/">
-            <SongForm />
             <SongList />
             <About />
           </Route>

@@ -3,10 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loadAllSongsThunk } from '../../store/songs';
 import SongCard from '../SongCard/SongCard';
 import './SongList.css';
+import { useHistory } from 'react-router-dom';
 
 const SongList = () => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const history = useHistory();
+
+  const handleCreateSong = () => {
+    history.push('/songs/new');
+  };
 
   useEffect(() => {
     dispatch(loadAllSongsThunk()).then(() => setIsLoaded(true))
@@ -17,7 +23,9 @@ const SongList = () => {
 
   return (
     <div className="landingPage">
-      <div className="song-list-intro">Check out our free songs below</div>
+      <h2 className="song-list-intro">Check out our free songs below!</h2>
+      <h3>Or click the button to create your own song:</h3>
+      <button className="create-song-button" onClick={handleCreateSong}>Create Song</button>
       <div className="songList">
         {songsArr.map((song) => (
           //passing in each song as a prop to be used in SongCard

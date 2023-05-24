@@ -7,6 +7,13 @@
   border: none;
   cursor: pointer;
   color: white;
+  border-radius: 20px;
+  padding: 5px;
+  border: 1px solid white;
+}
+
+.profile-button:hover {
+  background-color: #FF5500;
 }
 
 .profile-button i {
