@@ -19,7 +19,7 @@ const SongList = () => {
   }, [dispatch]);
 
   let songs = useSelector(state => state.songsState);
-  let songsArr = Object.values(songs);
+  let songsArr = Object.values(songs).sort((a, b) => b.id - a.id);
 
   return (
     <div className="landingPage">

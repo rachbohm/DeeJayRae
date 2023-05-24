@@ -1,4 +1,8 @@
 .add-song-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -14,16 +18,18 @@
 .add-song-form {
   display: grid;
   grid-gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-song-label {
-  font-size: 12px;
+  font-size: 24px;
   color: white;
 }
 
 .add-song-input {
   padding: 8px;
-  font-size: 12px;
+  font-size: 14px;
   border: 1px solid white;
   border-radius: 5px;
   background-color: black;

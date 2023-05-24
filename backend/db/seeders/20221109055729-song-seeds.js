@@ -196,7 +196,7 @@ const songSeeds = [
   {
     userId: 4,
     albumId: 4,
-    title: 'More Than Words',
+    title: 'Money(In God We Trust)',
     description: 'peaceful love song',
     url: 'url.com',
     previewImage: 'https://upload.wikimedia.org/wikipedia/en/2/25/More_than_words.jpg'
@@ -204,7 +204,15 @@ const songSeeds = [
   {
     userId: 5,
     albumId: 5,
-    title: 'Money(In God We Trust)',
+    title: 'Glory of Love',
+    description: 'strong and powerful',
+    url: 'url.com',
+    previewImage: 'https://lastfm.freetls.fastly.net/i/u/500x500/17c0d7fda8e9d8e7b1f7f6094b45980a.jpg'
+  },
+  {
+    userId: 5,
+    albumId: 5,
+    title: 'Only Love Knows Why',
     description: 'strong and powerful',
     url: 'url.com',
     previewImage: 'https://lastfm.freetls.fastly.net/i/u/500x500/17c0d7fda8e9d8e7b1f7f6094b45980a.jpg'

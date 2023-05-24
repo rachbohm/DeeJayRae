@@ -1,30 +1,45 @@
-img {
-  height: 50px;
-  width: 50px;
-}
-
-.songCard {
+.song-title {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid black;
-  padding: 10px;
-  margin: 5px;
-  height: 70px;
-  width: 70px;
+  border: 1px solid lightgray;
+  padding: 15px;
+  margin: 10px;
+  height: 160px;
+  width: 160px;
   text-decoration: none;
-  font-size: 8px;
-  font-family: "Lucida Grande";
-  background-color: lightgray;
+  font-size: 12px;
+  font-family: "Lucida Grande", Arial, sans-serif;
+  background-color: white;
+  /* box-shadow: 0 2px 4px #ff5500; */
+  transition: box-shadow 0.3s ease;
+}
+
+.songCard:hover {
+  box-shadow: 0 2px 4px #ff5500;
+}
+
+.songCard img {
+  height: 100px;
+  width: 100px;
+  margin-bottom: 10px;
 }
 
 .song-title {
-  font-size: 8px;
-  font-family: "Lucida Grande";
+  font-size: 14px;
+  font-family: "Lucida Grande", Arial, sans-serif;
   text-decoration: none;
   color: gray;
+  transition: color 0.3s ease;
 }
 
 .song-title:hover {
   color: black;
+}
+
+.song-artist {
+  margin-top: auto;
+  text-align: center;
+  font-size: 12px;
+  color: gray;
 }

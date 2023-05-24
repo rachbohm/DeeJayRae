@@ -148,7 +148,10 @@ router.get('/', validateQueryParams, async (req, res) => {
   }
 
   const songs = await Song.findAll({
-    ...pagination
+    // ...pagination
+    include: {
+      model: User, as: "Artist"
+    }
   });
   res.json({ Songs: songs, page, size })
 });

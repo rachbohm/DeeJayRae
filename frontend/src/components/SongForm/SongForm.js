@@ -1,11 +1,13 @@
 import { createSongThunk } from "../../store/songs";
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import './SongForm.css';
 
 export default function SongForm() {
 
   const sessionUser = useSelector(state => state.session.user);
+  const history = useHistory();
 
   const dispatch = useDispatch();
 
@@ -37,6 +39,8 @@ export default function SongForm() {
         setUrl('');
         setImageUrl('');
         setAlbumId('');
+        window.alert('Song successfully created');
+        history.push('/');
       }).catch(async res => {
         const data = await res.json();
         if (data.errors) setErrors(data.errors);
@@ -56,6 +60,7 @@ export default function SongForm() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Song Title"
+          required={true}
         />
         <input
           type="text"
@@ -63,6 +68,7 @@ export default function SongForm() {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="Song URL"
+          required={true}
         />
         <input
           type="text"
@@ -70,6 +76,7 @@ export default function SongForm() {
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
           placeholder="Image URL"
+          required={true}
         />
         <input
           type="text"
@@ -77,6 +84,7 @@ export default function SongForm() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
+          required={true}
         />
         <input
           type="number"
@@ -84,6 +92,7 @@ export default function SongForm() {
           value={albumId}
           onChange={(e) => setAlbumId(e.target.value)}
           placeholder="Album ID"
+          required={true}
         />
         <button type="submit" className="add-song-button">Submit</button>
       </form>
