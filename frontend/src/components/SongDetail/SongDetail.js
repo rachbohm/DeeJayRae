@@ -41,12 +41,36 @@ const SongDetail = () => {
         <>
           <div className="song-detail">
             <img src={song.previewImage} alt="Song Preview" />
-            <div>Title: {song.title}</div>
-            <div>Song ID: {song.id}</div>
-            <div>Artist: {song.Artist.firstName} {song.Artist.lastName}</div>
-            <div>Album ID: {song.albumId}</div>
-            <div>Description: {song.description}</div>
-            <div>Url: {song.url}</div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Title:</td>
+                  <td>{song.title}</td>
+                </tr>
+                <tr>
+                  <td>Song ID:</td>
+                  <td>{song.id}</td>
+                </tr>
+                <tr>
+                  <td>Artist:</td>
+                  <td>
+                    {song.Artist.firstName} {song.Artist.lastName}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Album ID:</td>
+                  <td>{song.albumId}</td>
+                </tr>
+                <tr>
+                  <td>Description:</td>
+                  <td>{song.description}</td>
+                </tr>
+                <tr>
+                  <td>Url:</td>
+                  <td>{song.url}</td>
+                </tr>
+              </tbody>
+            </table>
             {isOwner && (
               <button className="delete-button" onClick={deleteHandler}>
                 Delete
@@ -63,6 +87,7 @@ const SongDetail = () => {
       )}
     </div>
   );
+
 }
 
 export default SongDetail;
