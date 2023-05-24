@@ -1,26 +1,31 @@
 .landingPage {
-  max-width: 600px;
-  margin: 0 auto;
+  margin: 0 300px;
   padding: 20px;
   margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
 
 .song-list-intro {
-  color: white;
   font-size: 24px;
   text-align: center;
   margin-bottom: 20px;
 }
 
 .songList {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px;
 }
 
 .create-song-button {
   padding: 10px 15px;
-  margin: 10px 0;
+  margin: 10px;
+  width: fit-content;
   font-size: 14px;
   background-color: #ff5500;
   color: white;

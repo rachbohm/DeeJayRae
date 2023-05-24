@@ -4,24 +4,30 @@ const { Album, Comment, Playlist, PlaylistSong, Song, User } = require('../model
 const albumSeeds = [
   {
     userId: 1,
+    title: 'My First Album',
+    description: "It came out pretty good for a first album",
+    previewImage: 'fakeurl.com'
+  },
+  {
+    userId: 2,
     title: 'Pellucidity',
     description: 'mellow and acoustic',
     previewImage: 'fakeurl.com'
   },
   {
-    userId: 2,
+    userId: 3,
     title: 'Mink Car',
     description: 'quirky rock',
     previewImage: 'fake.com'
   },
   {
-    userId: 1,
+    userId: 4,
     title: 'Extreme II',
     description: 'soft rock',
     previewImage: 'fake.com'
   },
   {
-    userId: 2,
+    userId: 5,
     title: 'Solitude/Solitaire',
     description: 'strong rock',
     previewImage: 'fake.com'
