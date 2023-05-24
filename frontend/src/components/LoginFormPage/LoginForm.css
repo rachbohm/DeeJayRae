@@ -1,20 +1,51 @@
-form {
+.forms-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.login-form,
+.demo-login-form {
   display: grid;
-  justify-content: center;
+  gap: 10px;
   text-align: start;
+  max-width: 300px;
+  padding: 15px;
+  background-color: #222;
+  border: 2px solid #ff5500;
+  border-radius: 10px;
+  margin: 10px;
 }
 
-label {
-  padding: 1px;
-  margin: 1px;
-  display: grid;
-  font-size: 12px;
-  font-family: "Lucida Grande";
-}
-
-button {
-  margin: 1px;
-  background-color: rgb(255, 102, 0);
+.form-group label {
+  font-size: 14px;
+  font-family: "Lucida Grande", sans-serif;
   color: white;
-  font-size: 10px;
+}
+
+.form-group input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+}
+
+.login-button,
+.demo-login-button {
+  padding: 10px 15px;
+  font-size: 14px;
+  background-color: #ff5500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover,
+.demo-login-button:hover {
+  background-color: #ff774d;
 }
