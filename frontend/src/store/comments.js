@@ -38,12 +38,21 @@ export const createCommentThunk = (songId, payload) => async (dispatch) => {
   return res;
 };
 
-export const loadAllCommentsThunk = (songId) => async dispatch => {
-  const res = await csrfFetch(`/api/songs/${songId}/comments`)
-  if (res.ok) {
-    const comments = await res.json();
-    dispatch(loadCommentsAction(comments));
-    return comments
+export const loadAllCommentsThunk = (songId) => async (dispatch) => {
+  try {
+    const res = await csrfFetch(`/api/songs/${songId}/comments`);
+    if (res.ok) {
+      const comments = await res.json();
+      dispatch(loadCommentsAction(comments));
+      return comments;
+    } else if (res.status === 404) {
+      return []; // Return an empty array when the song has no comments
+    } else {
+      throw new Error('Failed to load comments');
+    }
+  } catch (err) {
+    console.error(err);
+    return [];
   }
 };
 

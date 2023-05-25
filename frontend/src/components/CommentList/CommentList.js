@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './CommentList.css';
 import { loadAllCommentsThunk } from '../../store/comments';
@@ -9,32 +9,33 @@ const CommentList = ({ song }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadAllCommentsThunk(song.id))
+    dispatch(loadAllCommentsThunk(song.id));
   }, [dispatch, song.id]);
 
-  let comments = useSelector(state => state.commentsState);
-  let commentsArr = Object.values(comments);
-  const filteredComments = commentsArr.filter(comment => { return comment.songId == song.id });
+  const comments = useSelector((state) => state.commentsState);
+  const commentsArr = Object.values(comments);
+  const filteredComments = commentsArr.filter((comment) => comment.songId === song.id);
 
   return (
     <div className="comment-list-container">
-      <div className='comment-form-container-container'>
+      <div className="comment-form-container-container">
         <CommentForm song={song} />
       </div>
-      {filteredComments.length > 0 && <div className="comment-list">
+      <div className="comment-list">
         <h2>Comments</h2>
-        {filteredComments.map((comment) => (
-          <CommentCard key={comment.id} comment={comment} />
-        ))}
+        {filteredComments.length > 0 ? (
+          filteredComments.map((comment) => (
+            <CommentCard key={comment.id} comment={comment} />
+          ))
+        ) : (
+          <>
+            <i className="fa-solid fa-comment-slash"></i>
+            <p>No comments yet</p>
+          </>
+        )}
       </div>
-      }
-      {filteredComments.length == 0 && <div className="comment-list">
-        <h2>Comments</h2>
-        <i className="fa-solid fa-comment-slash"></i>
-        <p>No comments yet</p>
-        </div>}
     </div>
-  )
+  );
 };
 
 export default CommentList;
