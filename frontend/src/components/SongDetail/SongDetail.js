@@ -25,8 +25,9 @@ const SongDetail = () => {
   }
 
   const deleteHandler = () => {
-    if (window.confirm("Please confirm you want to delete this song.")) {
+    if (window.confirm("Are you sure you want to delete this song?")) {
       dispatch(deleteSongThunk(song.id)).then(() => {
+        window.alert("Song successfully deleted.")
         history.push('/')
       })
     }
@@ -77,10 +78,10 @@ const SongDetail = () => {
               </button>
             )}
           </div>
-          <div className="edit-song-form">
+          <div className="edit-song-form-container">
             {isOwner && <EditSongForm song={song} />}
           </div>
-          <div className="comment-list">
+          <div>
             <CommentList song={song} />
           </div>
         </>

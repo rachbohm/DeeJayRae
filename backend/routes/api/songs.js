@@ -27,7 +27,16 @@ router.put('/:songId', requireAuth, async (req, res, next) => {
     targetSong.url = url;
     targetSong.previewImage = imageUrl;
     await targetSong.save();
-    return res.json(targetSong);
+
+    const resSong = await Song.findByPk(targetSong.id, {
+      include: [
+        {
+          model: User,
+          as: 'Artist',
+        },
+      ]
+    })
+    return res.json(resSong);
   } else {
     const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
       'Current user is unauthorized'
@@ -47,17 +56,6 @@ router.get('/:songId/comments', async (req, res, next) => {
     include: [
       {
         model: User,
-        attributes: {
-          exclude: [
-            "email",
-            "hashedPassword",
-            "firstName",
-            "lastName",
-            "createdAt",
-            "updatedAt",
-            "previewImage"
-          ]
-        }
       }
     ]
   });
@@ -88,17 +86,6 @@ router.get('/:songId', async (req, res, next) => {
     include: [
       {
         model: User,
-
-        // attributes: {
-        //   exclude: [
-        //     "email",
-        //     "hashedPassword",
-        //     "firstName",
-        //     "lastName",
-        //     "createdAt",
-        //     "updatedAt"
-        //   ]
-        // },
         as: 'Artist',
       },
       {
@@ -187,7 +174,16 @@ router.post('/:songId/comments', requireAuth, validateComment, async (req, res, 
   });
 
   targetSong.addComment(newComment);
-  res.json(newComment);
+
+
+  const resComment = await Comment.findByPk(newComment.id, {
+    include: [
+      {
+        model: User,
+      }
+    ]
+  });
+  res.json(resComment);
 });
 
 

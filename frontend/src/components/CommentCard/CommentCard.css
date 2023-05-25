@@ -1,6 +1,32 @@
 .commentCard {
-  border: 1px solid gray;
-  margin: 10px;
+  border: 1px solid #ff5500;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
   padding: 10px;
-  font-size: 8pt;
+  margin: 10px;
+  font-size: 10pt;
+  width: 400px;
+}
+
+.commentCard div {
+  margin-bottom: 5px;
+}
+
+.commentCard button {
+  padding: 8px;
+  font-size: 12px;
+  background-color: #ff5500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.commentCard button:hover {
+  background-color: #ff8533;
+}
+
+.comment-body {
+  font-style: italic;
 }

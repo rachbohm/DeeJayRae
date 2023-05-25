@@ -14,8 +14,8 @@ const CommentCard = ({ comment }) => {
 
   return (
     <div className="commentCard">
-      <div>User {comment.userId}</div>
-      <div>{comment.body}</div>
+      <div className="comment-user">User {comment.User.username}</div>
+      <div className="comment-body">{comment.body}</div>
       {isOwner && <button onClick={deleteHandler}>Delete</button>}
     </div>
   )

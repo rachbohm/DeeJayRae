@@ -32,10 +32,11 @@ const CommentForm = ({ song }) => {
   };
 
   return sessionUser.id && notOwner ? (
-    <div>
+    <div className='comment-form-container'>
       {errors.length > 0 && errors.map((error, i) => {
-       return <div key={i}>{error}</div>
+        return <div key={i}>{error}</div>
       })}
+      <h2>Leave a Comment!</h2>
       <form className="add-comment-form" onSubmit={handleSubmit}>
         <input className="comment-input"
           type="text"
@@ -46,7 +47,14 @@ const CommentForm = ({ song }) => {
         <button type="submit">Submit</button>
       </form>
     </div>
-  ) : null;
+  ) : sessionUser.id && !notOwner ? null : (
+    <h3>
+      Please
+      <a href="/login">login</a>
+      to leave a comment!
+    </h3>
+  );
+
 }
 
 export default CommentForm;

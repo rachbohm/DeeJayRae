@@ -1,3 +1,60 @@
-.comment-input {
-  width: 200px;
+.comment-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ff5500;
+  border-radius: 10px;
+}
+
+.add-comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ff5500;
+  border-radius: 10px;
+}
+
+.add-comment-form h2 {
+  color: black;
+  margin-bottom: 10px;
+}
+
+.add-comment-form .comment-input {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  margin-bottom: 10px;
+  width: 400px;
+}
+
+.add-comment-form .comment-input:hover {
+  background-color: #ff8533;
+}
+
+.add-comment-form button {
+  padding: 8px;
+  font-size: 12px;
+  background-color: #ff5500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.add-comment-form button:hover {
+  background-color: #ff8533;
+}
+
+.comment-form-container-container a {
+  color:#ff5500;
+  padding: 5px;
 }

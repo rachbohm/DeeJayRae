@@ -18,14 +18,21 @@ const CommentList = ({ song }) => {
 
   return (
     <div className="comment-list-container">
-      <div>
+      <div className='comment-form-container-container'>
         <CommentForm song={song} />
       </div>
-      <div>
+      {filteredComments.length > 0 && <div className="comment-list">
+        <h2>Comments</h2>
         {filteredComments.map((comment) => (
           <CommentCard key={comment.id} comment={comment} />
         ))}
       </div>
+      }
+      {filteredComments.length == 0 && <div className="comment-list">
+        <h2>Comments</h2>
+        <i className="fa-solid fa-comment-slash"></i>
+        <p>No comments yet</p>
+        </div>}
     </div>
   )
 };
