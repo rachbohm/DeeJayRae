@@ -50,7 +50,7 @@ const CommentForm = ({ song }) => {
   ) : sessionUser.id && !notOwner ? null : (
     <h3>
       Please
-      <a href="/login">login</a>
+      <a href="/login">log in</a>
       to leave a comment!
     </h3>
   );

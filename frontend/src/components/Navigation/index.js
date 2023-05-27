@@ -29,6 +29,7 @@ function Navigation({ isLoaded }){
         </NavLink>
       </div>
       <div className="nav-right">
+        <NavLink className="navLink playlist-link" exact to="/playlists">Playlists</NavLink>
         <NavLink className="navLink" exact to="/">Home</NavLink>
         {isLoaded && sessionLinks}
       </div>

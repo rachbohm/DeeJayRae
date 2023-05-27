@@ -1,4 +1,4 @@
-.landingPage {
+.playlistList-container {
   margin: 0 200px;
   padding: 20px;
   margin-bottom: 100px;
@@ -9,20 +9,20 @@
   align-items: center;
 }
 
-.song-list-intro {
+.playlist-list-intro {
   font-size: 24px;
   text-align: center;
   margin-bottom: 20px;
 }
 
-.songList {
+.playlistList {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   margin: 20px;
 }
 
-.create-song-button {
+.create-playlist-button {
   padding: 10px 15px;
   margin: 10px;
   width: fit-content;
@@ -34,10 +34,10 @@
   cursor: pointer;
 }
 
-.create-song-button:hover {
+.create-playlist-button:hover {
   background-color: #ff8533;
 }
 
-.landingPage h3 > a {
+.playlistList-container h3 > a {
   color:#ff5500
 }

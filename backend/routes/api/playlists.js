@@ -9,8 +9,8 @@ const router = express.Router();
 //add a song to a playlist based on the playlist's id
 router.post('/:playlistId/songs', requireAuth, async (req, res, next) => {
   const { user } = req;
-  const {playlistId} = req.params;
-  const {songId} = req.body;
+  const { playlistId } = req.params;
+  const { songId } = req.body;
 
   const targetPlaylist = await Playlist.findOne({
     where: {
@@ -117,8 +117,21 @@ router.get('/current', requireAuth, async (req, res, next) => {
       userId: user.id
     }
   });
-  res.json({Playlists: playlists})
+  res.json({ Playlists: playlists })
 })
+
+//get all playlists
+router.get('/', async (req, res, next) => {
+  const playlists = await Playlist.findAll({
+    include: [
+      {
+        model: User
+      }
+    ]
+  });
+  res.json({ Playlists: playlists })
+});
+
 
 //get details of a playlist from an id
 router.get('/:playlistId', async (req, res, next) => {
@@ -157,7 +170,7 @@ router.delete('/:playlistId', requireAuth, async (req, res, next) => {
     const err = new Error("Playlist couldn't be found");
     err.status = 404;
     err.errors = ["Playlist couldn't be found"];
-     return next(err)
+    return next(err)
   }
 
   if (doomedPlaylist.userId === user.id) {

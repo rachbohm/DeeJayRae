@@ -79,7 +79,6 @@ export const editSongThunk = (payload, id) => async (dispatch) => {
 
   if (res.ok) {
     const song = await res.json();
-    console.log(song)
     dispatch(updateSongAction(song));
   }
 };

@@ -7,6 +7,7 @@ import SongForm from "./components/SongForm/SongForm";
 import SongList from "./components/SongList/SongList";
 import SongDetail from "./components/SongDetail/SongDetail";
 import About from "./components/About/About";
+import PlaylistList from "./components/Playlists/PlaylistList";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -36,6 +37,10 @@ function App() {
           <Route path="/songs/:songId">
             <About />
             <SongDetail />
+          </Route>
+          <Route path="/playlists">
+            <About />
+            <PlaylistList />
           </Route>
           <Route path="/">
             <SongList />
