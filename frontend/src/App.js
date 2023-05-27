@@ -23,15 +23,18 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route path="/login">
+            <About />
             <LoginFormPage />
           </Route>
           <Route path="/signup">
+            <About />
             <SignupFormPage />
           </Route>
           <Route path="/songs/new">
             <SongForm />
           </Route>
           <Route path="/songs/:songId">
+            <About />
             <SongDetail />
           </Route>
           <Route path="/">

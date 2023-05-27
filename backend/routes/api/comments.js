@@ -32,7 +32,17 @@ router.put('/:commentId', requireAuth, validateComment, async (req, res, next) =
   if (targetComment.userId === userId) {
 
     targetComment.body = body;
-    res.json(targetComment);
+    await targetComment.save();
+
+    const response = await Comment.findByPk(commentId, {
+      include: [
+        {
+          model: User,
+          attributes: ['username']
+        }
+      ]
+    });
+    res.json(response);
   } else {
     const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
       'Current user is unauthorized'

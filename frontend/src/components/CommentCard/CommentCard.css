@@ -30,3 +30,24 @@
 .comment-body {
   font-style: italic;
 }
+
+.comment-owner button {
+  background-color: #ff5500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.comment-owner button:hover {
+  background-color: #ff8533;
+}
+
+.commentCard input {
+  width: 80%;
+  padding: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #ff5500;
+  border-radius: 5px;
+}

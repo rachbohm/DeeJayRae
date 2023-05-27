@@ -37,56 +37,59 @@ const SongDetail = () => {
   if (!song) return null;
 
   return (
-    <div className="song-detail-container">
-      {song && (
-        <>
-          <div className="song-detail">
-            <img src={song.previewImage} alt="Song Preview" />
-            <table>
-              <tbody>
-                <tr>
-                  <td>Title:</td>
-                  <td>{song.title}</td>
-                </tr>
-                <tr>
-                  <td>Song ID:</td>
-                  <td>{song.id}</td>
-                </tr>
-                <tr>
-                  <td>Artist:</td>
-                  <td>
-                    {song.Artist.firstName} {song.Artist.lastName}
-                  </td>
-                </tr>
-                <tr>
-                  <td>Album ID:</td>
-                  <td>{song.albumId}</td>
-                </tr>
-                <tr>
-                  <td>Description:</td>
-                  <td>{song.description}</td>
-                </tr>
-                <tr>
-                  <td>Url:</td>
-                  <td>{song.url}</td>
-                </tr>
-              </tbody>
-            </table>
-            {isOwner && (
-              <button className="delete-button" onClick={deleteHandler}>
-                Delete
-              </button>
-            )}
-          </div>
-          <div className="edit-song-form-container">
-            {isOwner && <EditSongForm song={song} />}
-          </div>
-          <div>
-            <CommentList song={song} />
-          </div>
-        </>
-      )}
-    </div>
+    <>
+      <h1 className="song-detail-title">{song.title}</h1>
+      <div className="song-detail-container">
+        {song && (
+          <>
+            <div className="song-detail">
+              <img src={song.previewImage} alt="Song Preview" />
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Title:</td>
+                    <td>{song.title}</td>
+                  </tr>
+                  <tr>
+                    <td>Song ID:</td>
+                    <td>{song.id}</td>
+                  </tr>
+                  <tr>
+                    <td>Artist:</td>
+                    <td>
+                      {song.Artist.firstName} {song.Artist.lastName}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Album ID:</td>
+                    <td>{song.albumId}</td>
+                  </tr>
+                  <tr>
+                    <td>Description:</td>
+                    <td>{song.description}</td>
+                  </tr>
+                  <tr>
+                    <td>Url:</td>
+                    <td>{song.url}</td>
+                  </tr>
+                </tbody>
+              </table>
+              {isOwner && (
+                <button className="delete-button" onClick={deleteHandler}>
+                  Delete
+                </button>
+              )}
+            </div>
+            <div className="edit-song-form-container">
+              {isOwner && <EditSongForm song={song} />}
+            </div>
+            <div>
+              <CommentList song={song} />
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 
 }

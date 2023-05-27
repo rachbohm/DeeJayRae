@@ -21,6 +21,11 @@ const removeCommentAction = (commentId) => ({
   commentId
 });
 
+const updateCommentAction = (comment) => ({
+  type: UPDATE_COMMENT,
+  comment
+});
+
 //THUNKS
 export const createCommentThunk = (songId, payload) => async (dispatch) => {
 
@@ -63,10 +68,25 @@ export const deleteCommentThunk = (commentId) => async dispatch => {
 
   if (res.ok) {
     const data = await res.json();
-    window.alert("Please confirm you want to delete this comment.")
+    // window.alert("Please confirm you want to delete this comment.")
     dispatch(removeCommentAction(commentId))
   }
 };
+
+export const updateCommentThunk = (commentId, payload) => async dispatch => {
+  const res = await csrfFetch(`/api/comments/${commentId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  if (res.ok) {
+    const comment = await res.json();
+    dispatch(updateCommentAction(comment));
+    return comment;
+  }
+};
+
 
 const initialState = {
 }
@@ -87,6 +107,10 @@ const commentReducer = (state = initialState, action) => {
     case REMOVE_COMMENT:
       newState = { ...state };
       delete newState[action.commentId];
+      return newState;
+    case UPDATE_COMMENT:
+      newState = { ...state };
+      newState[action.comment.id] = action.comment;
       return newState;
     default:
       return state;
