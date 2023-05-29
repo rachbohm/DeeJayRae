@@ -1,30 +1,21 @@
-.playlistList-container {
-  margin: 0 200px;
-  padding: 20px;
-  margin-bottom: 100px;
+.playlist-list-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
   align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 100px;
 }
 
 .playlist-list-intro {
   font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.playlistList {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 20px;
+  margin-bottom: 10px;
 }
 
 .create-playlist-button {
   padding: 10px 15px;
-  margin: 10px;
+  margin: 10px auto;
   width: fit-content;
   font-size: 14px;
   background-color: #ff5500;
@@ -38,6 +29,103 @@
   background-color: #ff8533;
 }
 
-.playlistList-container h3 > a {
-  color:#ff5500
+.playlist-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.playlist-cards {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 50px 150px;
+}
+
+.playlist-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  margin-bottom: 10px;
+}
+
+.playlist-card-li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid lightgray;
+  padding: 15px;
+  height: 160px;
+  width: 160px;
+  text-decoration: none;
+  background-color: white;
+  transition: box-shadow 0.3s ease;
+}
+
+.playlist-card-li:hover {
+  box-shadow: 0 2px 4px #ff5500;
+}
+
+.playlist-card-li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-family: "Lucida Grande", Arial, sans-serif;
+  color: gray;
+}
+
+.playlist-card-li a:hover {
+  color: black;
+}
+
+.playlist-card-li img {
+  height: 100px;
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.playlist-creator {
+  margin-top: auto;
+  text-align: center;
+  font-size: 12px;
+  color: gray;
+}
+
+.playlist-detail-container {
+  /* margin-top: 20px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playlist-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px 150px;
+}
+
+.playlist-detail img {
+  height: 200px;
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.playlist-detail table {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.playlist-detail table td {
+  padding: 5px;
+}
+
+.playlist-detail h2 {
+  margin-top: 0px;
 }
