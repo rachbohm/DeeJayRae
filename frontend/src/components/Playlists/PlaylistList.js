@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { loadAllPlaylistsThunk } from '../../store/playlists';
+import { loadAllPlaylistsThunk, loadPlaylistThunk } from '../../store/playlists';
 import './PlaylistList.css';
 
 const PlaylistList = () => {
@@ -18,12 +18,16 @@ const PlaylistList = () => {
     history.push('/playlists/new');
   };
 
-  const handlePlaylistClick = (playlist) => {
-    setSelectedPlaylist(playlist);
+  const handlePlaylistClick = async (playlist) => {
+    await dispatch(loadPlaylistThunk(playlist.id)).then((updatedPlaylist) => {
+      //set selectedPlaylist to the playlist that was returned from the thunk
+      setSelectedPlaylist(updatedPlaylist);
+      setIsLoaded(true);
+    })
   };
 
   useEffect(() => {
-    dispatch(loadAllPlaylistsThunk()).then(() => setIsLoaded(true));
+    dispatch(loadAllPlaylistsThunk());
   }, [dispatch]);
 
   return (
@@ -59,7 +63,7 @@ const PlaylistList = () => {
             </div>
           ))}
         </div>
-        {selectedPlaylist && (
+        {selectedPlaylist && isLoaded && (
           <div className="playlist-detail-container">
             <div className="playlist-detail">
               <h2>{selectedPlaylist.name}</h2>
@@ -67,8 +71,8 @@ const PlaylistList = () => {
               <table>
                 <tbody>
                   <tr>
-                    <td>Playlist ID:</td>
-                    <td>{selectedPlaylist.id}</td>
+                    <td>Length:</td>
+                    <td>{selectedPlaylist.Songs ? selectedPlaylist.Songs.length : 0} songs</td>
                   </tr>
                   <tr>
                     <td>Creator:</td>

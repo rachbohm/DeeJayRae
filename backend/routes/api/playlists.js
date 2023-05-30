@@ -142,7 +142,11 @@ router.get('/:playlistId', async (req, res, next) => {
       id: playlistId
     },
     include: [
-      {
+      {//include the user who created the playlist
+        model: User,
+        attributes: ['username']
+      },
+      {//include the songs in the playlist
         model: Song,
         through: {
           attributes: []
