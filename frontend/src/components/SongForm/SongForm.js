@@ -1,15 +1,22 @@
 import { createSongThunk } from "../../store/songs";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import { loadAllAlbumsThunk } from "../../store/albums";
 import './SongForm.css';
 
 export default function SongForm() {
-
   const sessionUser = useSelector(state => state.session.user);
   const history = useHistory();
-
   const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    dispatch(loadAllAlbumsThunk()).then(() => setIsLoaded(true))
+  }, [dispatch]);
+
+  const albums = useSelector(state => state.albumsState);
+  const albumsArr = Object.values(albums).sort((a, b) => b.id - a.id);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -29,7 +36,7 @@ export default function SongForm() {
       description,
       url,
       imageUrl,
-      albumId
+      albumId,
     };
 
     await dispatch(createSongThunk(payload))
@@ -47,7 +54,7 @@ export default function SongForm() {
       });
   };
 
-  return sessionUser.id ? (
+  return sessionUser.id && isLoaded ? (
     <div className="add-song-container">
       {errors.length > 0 && errors.map((error, i) => (
         <div key={i} className="error-message">{error}</div>
@@ -110,18 +117,23 @@ export default function SongForm() {
           />
         </div>
         <div className="input-container">
-          <label htmlFor="albumId" className="input-label">
-            Album ID
+          <label htmlFor="album" className="input-label">
+            Album
           </label>
-          <input
-            type="number"
-            id="albumId"
+          <select
+            id="album"
             className="add-song-input"
             value={albumId}
             onChange={(e) => setAlbumId(e.target.value)}
-            placeholder="Enter an album ID"
             required={true}
-          />
+          >
+            <option value="">Select an album</option>
+            {albumsArr.map((album) => (
+              <option key={album.id} value={album.id}>
+                {album.title}
+              </option>
+            ))}
+          </select>
         </div>
         <button type="submit" className="add-song-button">
           Submit

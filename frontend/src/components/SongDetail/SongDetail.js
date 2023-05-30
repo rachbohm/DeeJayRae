@@ -10,9 +10,11 @@ const SongDetail = () => {
   const { songId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(getSingleSongThunk(songId))
+    dispatch(getSingleSongThunk(songId)).then(() => setIsLoaded(true));
+
   }, [dispatch, songId]);
 
   const song = useSelector(state => state.songsState[songId]);
@@ -36,7 +38,7 @@ const SongDetail = () => {
 
   if (!song) return null;
 
-  return (
+  return isLoaded && (
     <>
       <h1 className="song-detail-title">{song.title}</h1>
       <div className="song-detail-container">
@@ -51,18 +53,18 @@ const SongDetail = () => {
                     <td>{song.title}</td>
                   </tr>
                   <tr>
-                    <td>Song ID:</td>
-                    <td>{song.id}</td>
-                  </tr>
-                  <tr>
                     <td>Artist:</td>
                     <td>
                       {song.Artist.firstName} {song.Artist.lastName}
                     </td>
                   </tr>
                   <tr>
-                    <td>Album ID:</td>
-                    <td>{song.albumId}</td>
+                    <td>Uploaded by:</td>
+                    <td>{song.Artist.username}</td>
+                  </tr>
+                  <tr>
+                    <td>Album:</td>
+                    <td>{song.Album.title}</td>
                   </tr>
                   <tr>
                     <td>Description:</td>

@@ -5,6 +5,7 @@ import songReducer from "./songs";
 import commentReducer from "./comments";
 import currentReducer from "./current";
 import playlistsReducer from "./playlists";
+import albumsReducer from "./albums";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   commentsState: commentReducer,
   currentState: currentReducer,
   playlistsState: playlistsReducer,
+  albumsState: albumsReducer,
 });
 
 let enhancer;
