@@ -80,6 +80,7 @@ const PlaylistList = () => {
                   </tr>
                 </tbody>
               </table>
+            <button className='go-to-playlist' onClick={() => history.push(`/playlists/${selectedPlaylist.id}`)}>Go To Playlist</button>
             </div>
           </div>
         )}

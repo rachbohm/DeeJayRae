@@ -8,6 +8,7 @@ import SongList from "./components/SongList/SongList";
 import SongDetail from "./components/SongDetail/SongDetail";
 import About from "./components/About/About";
 import PlaylistList from "./components/Playlists/PlaylistList";
+import PlaylistDetail from "./components/Playlists/PlaylistDetail";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -23,26 +24,30 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/login">
+          <Route exact path="/login">
             <About />
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <About />
             <SignupFormPage />
           </Route>
-          <Route path="/songs/new">
+          <Route exact path="/songs/new">
             <SongForm />
           </Route>
-          <Route path="/songs/:songId">
+          <Route exact path="/songs/:songId">
             <About />
             <SongDetail />
           </Route>
-          <Route path="/playlists">
+          <Route exact path="/playlists/:playlistId">
+            <About />
+            <PlaylistDetail />
+          </Route>
+          <Route exact path="/playlists">
             <About />
             <PlaylistList />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <SongList />
             <About />
           </Route>

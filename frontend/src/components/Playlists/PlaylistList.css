@@ -25,8 +25,24 @@
   cursor: pointer;
 }
 
+.go-to-playlist {
+  padding: 10px 15px;
+  margin: 10px auto;
+  width: fit-content;
+  font-size: 14px;
+  background-color: #ff5500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .create-playlist-button:hover {
   background-color: #ff8533;
+}
+
+.go-to-playlist:hover {
+  background-color:#ff8533;
 }
 
 .playlist-list {
