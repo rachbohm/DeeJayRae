@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import { loadMySongsThunk } from "../../store/current";
+import { loadAllPlaylistsThunk } from "../../store/playlists";
 import { NavLink } from "react-router-dom";
 import './ProfileButton.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const userId = useSelector(state => state.session.user.id);
 
   const openMenu = () => {
     if (showMenu) return;
@@ -31,12 +35,20 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
-  useEffect(() => {
-    dispatch(loadMySongsThunk())
-  }, [dispatch]);
+  const mySongs = useSelector(state => state.currentState);
+  const mySongsArr = Object.values(mySongs);
 
-  let mySongs = useSelector(state => state.currentState);
-  let mySongsArr = Object.values(mySongs);
+  const myPlaylists = useSelector(state => {
+    const playlists = state.playlistsState;
+    return Object.values(playlists).filter(playlist => playlist.userId === userId);
+  });
+
+  useEffect(() => {
+    dispatch(loadMySongsThunk());
+    dispatch(loadAllPlaylistsThunk()).then(() => {
+      setIsLoaded(true);
+    });
+  }, [dispatch, userId]);
 
   return (
     <div className="profile-button-container">
@@ -55,6 +67,16 @@ function ProfileButton({ user }) {
               </NavLink>
             ))}
           </div>
+          {isLoaded && (
+            <div className="song-list">
+              <span className="song-list-title">My Playlists:</span>
+              {myPlaylists.map((playlist) => (
+                <NavLink key={playlist.id} className="my-song-title" to={`/playlists/${playlist.id}`}>
+                  {playlist.name}
+                </NavLink>
+              ))}
+            </div>
+          )}
           <li>
             <button className="logout-button" onClick={logout}>Log Out</button>
           </li>
@@ -62,7 +84,6 @@ function ProfileButton({ user }) {
       )}
     </div>
   );
-
 }
 
 export default ProfileButton;

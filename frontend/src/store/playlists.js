@@ -104,7 +104,7 @@ const playlistsReducer = (state = initialState, action) => {
       action.playlists.Playlists.forEach(playlist => {
         allPlaylists[playlist.id] = playlist;
       });
-      return { ...state, ...allPlaylists };
+      return { ...allPlaylists };
     case REMOVE_PLAYLIST:
       const newState = { ...state };
       delete newState[action.playlistId];

@@ -30,7 +30,7 @@ const PlaylistDetail = () => {
 
   const deleteHandler = () => {
     if (window.confirm("Are you sure you want to delete this playlist?")) {
-      dispatch(deletePlaylistThunk(playlist.id)).then(() => {
+     dispatch(deletePlaylistThunk(playlist.id)).then(() => {
         window.alert("Playlist successfully deleted.")
         history.push('/playlists')
       })
@@ -40,9 +40,9 @@ const PlaylistDetail = () => {
 
   if (!playlist) return null;
 
-  //render the playlist details based on the return from the backend route
   return isLoaded && (
-    <>
+    <div className="playlist-detail-container-1">
+
       <h1 className="playlist-detail-title">{playlist.name}</h1>
       <div className="playlist-detail-container">
         {playlist && (
@@ -57,9 +57,7 @@ const PlaylistDetail = () => {
                   </tr>
                   <tr>
                     <td>Creator:</td>
-                    <td>
-                      {playlist.User.username}
-                    </td>
+                    <td>{playlist.User.username}</td>
                   </tr>
                   <tr>
                     <td>Length:</td>
@@ -68,19 +66,29 @@ const PlaylistDetail = () => {
                 </tbody>
               </table>
             </div>
+            <div className="playlist-songs-container">
+              <h2 className="playlist-songs-title">Songs in this playlist:</h2>
+              <div className="playlist-songs">
+                {playlist.Songs.map((song) => (
+                  <SongCard key={song.id} song={song} />
+                ))}
+              </div>
+              {isOwner && (
+                <div className="playlist-detail-buttons">
+                  <button className="playlist-detail-button" onClick={() => history.push(`/playlists/${playlist.id}/edit`)}>
+                    Edit Playlist
+                  </button>
+                  <button className="playlist-detail-button" onClick={deleteHandler}>
+                    Delete Playlist
+                  </button>
+                </div>
+              )}
+            </div>
           </>
         )}
       </div>
-      <div className="playlist-songs-container">
-        <h2 className="playlist-songs-title">Songs in this playlist:</h2>
-        <div className="playlist-songs">
-          {playlist.Songs.map((song) => (
-            <SongCard key={song.id} song={song} />
-          ))}
-        </div>
-      </div>
-    </>
-  )
+    </div>
+  );
 }
 
 export default PlaylistDetail;
