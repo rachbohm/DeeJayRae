@@ -71,6 +71,14 @@ export default function EditPlaylist() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setErrors([]);
+
+    if (selectedSongs.length === 0) {
+      setErrors(["Please select at least one song."]);
+      return;
+    }
+    
     const payload = {
       name,
       previewImage,
@@ -187,7 +195,7 @@ export default function EditPlaylist() {
                     {selectedSongs.map((songId) => {
                       const song = songs[songId];
                       if (!song) {
-                        return null; 
+                        return null;
                       }
                       return (
                         <div className="selected-song-container" key={songId}>
