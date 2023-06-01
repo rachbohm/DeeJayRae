@@ -1,54 +1,47 @@
 'use strict';
-const { Album, Comment, Playlist, PlaylistSong, Song, User } = require('../models');
-/** @type {import('sequelize-cli').Migration} */
-
-const playlistSongSeeds = [
-  {
-    playlistId: 1,
-    songId: 1
-  },
-  {
-    playlistId: 1,
-    songId: 3
-  },
-  {
-    playlistId: 2,
-    songId: 2
-  },
-  {
-    playlistId: 2,
-    songId: 4
-  }
-];
+const { PlaylistSong } = require('../models');
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+  options.schema = process.env.SCHEMA; // define your schema in the options object
 }
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const playlistCount = 5; // Number of playlists
+    const songCount = 27; // Number of songs
+    const songsPerPlaylist = 10; // Number of songs to assign to each playlist
+
+    const playlistSongSeeds = [];
+
+    // Generate random playlist-song associations
+    for (let playlistId = 1; playlistId <= playlistCount; playlistId++) {
+      const assignedSongs = new Set(); // Track assigned songs to avoid duplicates
+
+      while (assignedSongs.size < songsPerPlaylist) {
+        const songId = Math.floor(Math.random() * songCount) + 1; // Generate random song ID
+
+        // Check if the song is already assigned to the playlist
+        if (!assignedSongs.has(songId)) {
+          assignedSongs.add(songId);
+
+          // Create the playlist-song seed object
+          const playlistSongSeed = {
+            playlistId,
+            songId
+          };
+
+          playlistSongSeeds.push(playlistSongSeed);
+        }
+      }
+    }
+
     options.tableName = 'PlaylistSongs';
-    await queryInterface.bulkInsert(options, playlistSongSeeds, {})
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    await queryInterface.bulkInsert(options, playlistSongSeeds, {});
   },
 
   async down(queryInterface, Sequelize) {
-    options.tableName = 'PlaylistSongs'
-    await queryInterface.bulkDelete(options, playlistSongSeeds, {})
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+    options.tableName = 'PlaylistSongs';
+    await queryInterface.bulkDelete(options, null, {});
+  },
 };
