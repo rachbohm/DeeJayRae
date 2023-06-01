@@ -27,6 +27,12 @@ const PlaylistDetail = () => {
     isOwner = sessionUser.id === playlist.userId;
   }
 
+  if (!playlist) return (
+    <div className="playlist-detail-container-1">
+      <h1 className="playlist-detail-title">Playlist not found.</h1>
+    </div>
+  )
+
   const deleteHandler = () => {
     if (window.confirm("Are you sure you want to delete this playlist?")) {
      dispatch(deletePlaylistThunk(playlist.id)).then(() => {

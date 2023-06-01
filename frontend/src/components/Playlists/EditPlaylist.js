@@ -30,9 +30,6 @@ export default function EditPlaylist() {
   if (playlists && isLoaded) {
     thisPlaylist = playlists[playlistId];
   }
-  console.log('isLoaded', isLoaded)
-  console.log('playlists', playlists)
-  console.log('thisPlaylist', thisPlaylist)
 
   const isOwner = thisPlaylist && sessionUser.id === thisPlaylist.userId;
 
@@ -78,7 +75,7 @@ export default function EditPlaylist() {
       setErrors(["Please select at least one song."]);
       return;
     }
-    
+
     const payload = {
       name,
       previewImage,
@@ -232,6 +229,10 @@ export default function EditPlaylist() {
       </form>
     </div>
   ) : (
-    <div className="not-authorized">You are not authorized to edit this playlist.</div>
+      <div className="add-playlist-container">
+        <h1 className="add-playlist-title">
+        You are not authorized to edit this playlist.
+        </h1>
+      </div>
   )
 }
