@@ -98,7 +98,7 @@ const playlistsReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case ADD_PLAYLIST:
-      return { ...state, [action.playlist.id]: action.playlist };
+      return {  };
     case LOAD_PLAYLISTS:
       const allPlaylists = {};
       action.playlists.Playlists.forEach(playlist => {
