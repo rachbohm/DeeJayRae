@@ -23,6 +23,21 @@
   justify-content: center;
 }
 
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px;
+  border: 1px solid #ff5500;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.search-bar:hover {
+  background-color:#ff8533;
+  border: 1px solid white;
+}
 .error-message {
   color: red;
   margin-bottom: 10px;
@@ -69,10 +84,6 @@
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  margin: 0px 20px 20px 20px;
-}
-
-.song-checkboxes {
   background-color: white;
   padding:20px;
   border: 1px solid #ff5500;
@@ -82,4 +93,43 @@
 .select-songs {
   display: flex;
   justify-content: center;
+}
+
+.song-checkboxes div:hover {
+  background-color: #ff8533;
+}
+
+.song-checkboxes div {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #ff5500;
+  cursor: pointer;
+}
+
+.song-checkboxes div:checked {
+  background-color: #ff5500;
+  color: white;
+}
+
+.checkboxes-and-button {
+  display: flex;
+  flex-direction: row;
+}
+
+.selected-songs {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding:20px;
+  border: 1px solid #ff5500;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.selected-songs-and-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px 0px 0px 20px;
 }
