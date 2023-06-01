@@ -69,7 +69,7 @@ const validatePlaylist = [
 ]
 
 router.post('/', requireAuth, validatePlaylist, async (req, res, next) => {
-  const { name, previewImage } = req.body;
+  const { name, previewImage, songIds } = req.body;
   const { user } = req;
 
   const newPlaylist = await Playlist.create({
@@ -77,6 +77,17 @@ router.post('/', requireAuth, validatePlaylist, async (req, res, next) => {
     previewImage,
     userId: user.id
   });
+
+  //add songs to the playlist
+  if (songIds) {
+    for (let songId of songIds) {
+      const targetSong = await Song.findByPk(songId);
+      if (targetSong) {
+        await newPlaylist.addSong(targetSong);
+      }
+    }
+  }
+  
   res.json(newPlaylist)
 });
 

@@ -3,22 +3,21 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { loadAllSongsThunk } from "../../store/songs";
+import React from 'react';
 import './PlaylistForm.css';
 
 export default function PlaylistForm() {
   const history = useHistory();
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-
   const [name, setName] = useState('');
   const [previewImage, setPreviewImage] = useState('https://media.istockphoto.com/id/1034671212/vector/cassette-with-retro-label-as-vintage-object-for-80s-revival-mix-tape-design.jpg?s=612x612&w=0&k=20&c=ILi5E7_zIBJk1ksjmMGA2mHJ31QZ1__C9nD4NeduxGo=');
-  const [selectedSongs, setSelectedSongs] = useState([]); // State for selected songs
+  const [selectedSongs, setSelectedSongs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    dispatch(loadAllSongsThunk()).then(() => setIsLoaded(true))
+    dispatch(loadAllSongsThunk()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
   const sessionUser = useSelector(state => state.session.user);
@@ -38,29 +37,31 @@ export default function PlaylistForm() {
     const payload = {
       name,
       previewImage,
-      songIds: selectedSongs, // Pass selected song IDs in the payload
+      songIds: selectedSongs,
     };
 
-    await dispatch(createPlaylistThunk(payload))
-      .then(() => {
-        window.alert('Playlist successfully created');
-        history.push('/playlists');
-      }
-      ).catch(async res => {
-        const data = await res.json();
-        if (data.errors) setErrors(data.errors);
-      }
-      );
+    try {
+      await dispatch(createPlaylistThunk(payload));
+      window.alert('Playlist successfully created');
+      history.push('/playlists');
+    } catch (res) {
+      const data = await res.json();
+      if (data.errors) setErrors(data.errors);
+    }
   };
 
   const handleSongSelect = (songId) => {
-    if (selectedSongs.includes(songId)) {
-      // If the song is already selected, remove it from the selection
-      setSelectedSongs(selectedSongs.filter(id => id !== songId));
-    } else {
-      // If the song is not selected, add it to the selection
-      setSelectedSongs([...selectedSongs, songId]);
-    }
+    setSelectedSongs(prevSelectedSongs => {
+      if (prevSelectedSongs.includes(songId)) {
+        return prevSelectedSongs.filter(id => id !== songId);
+      } else {
+        return [...prevSelectedSongs, songId];
+      }
+    });
+  };
+
+  const handleClearAll = () => {
+    setSelectedSongs([]);
   };
 
   const filteredSongs = songsArr.filter(song => {
@@ -74,10 +75,14 @@ export default function PlaylistForm() {
 
   return sessionUser.id && isLoaded ? (
     <div className="add-playlist-container">
-      {errors.length > 0 && errors.map((error, i) => (
-        <div key={i} className="error-message">{error}</div>
-      ))}
       <form className="add-playlist-form" onSubmit={handleSubmit}>
+        {errors.length > 0 && (
+          <div className="error-message">
+            {errors.map((error, i) => (
+              <span key={i}>{error}</span>
+            ))}
+          </div>
+        )}
         <h1 className="add-playlist-title">Create a Playlist!</h1>
         <label className="add-playlist-label">Name</label>
         <input
@@ -105,31 +110,55 @@ export default function PlaylistForm() {
         />
         <div className="checkboxes-and-button">
           <div className="song-checkboxes">
-            {filteredSongs.length > 0 ? filteredSongs.map((song) => (
-              <label key={song.id} className="song-checkbox-label">
-                <div>
-                  <input
-                    type="checkbox"
-                    name="songIds"
-                    value={song.id}
-                    checked={selectedSongs.includes(song.id)}
-                    onChange={() => handleSongSelect(song.id)}
-                  />
-                  {song.title} by {song.Artist.firstName} {song.Artist.lastName}
-                </div>
-              </label>
-            )) : <div>No songs found. Try another search term.</div>}
+            {filteredSongs.length > 0 ? (
+              filteredSongs.map((song) => (
+                <label key={song.id} className="song-checkbox-label">
+                  <div>
+                    <input
+                      type="checkbox"
+                      name="songIds"
+                      value={song.id}
+                      checked={selectedSongs.includes(song.id)}
+                      onChange={() => handleSongSelect(song.id)}
+                    />
+                    <span className="selected-song-title">{song.title}</span>
+                    <span className="selected-song-artist">
+                      - {song.Artist.firstName} {song.Artist.lastName}
+                    </span>
+                  </div>
+                </label>
+              ))
+            ) : (
+              <div>No songs found. Try another search term.</div>
+            )}
           </div>
           <div className="selected-songs-and-button">
             <div className="selected-songs">
               <span className="selected-songs-title">Selected Songs:</span>
-              {selectedSongs.length > 0 ? selectedSongs.map((songId) => (
-                <li key={songId} className="selected-song">
-                  {songs[songId].title} by {songs[songId].Artist.firstName} {songs[songId].Artist.lastName}
-                </li>
-              )) : <div>No songs selected.</div>}
+              {selectedSongs.length > 0 ? (
+                <React.Fragment>
+                  <button className="clear-songs-button" onClick={handleClearAll}>Clear All</button>
+                  <ul className="selected-songs-list">
+                    {selectedSongs.map((songId) => (
+                      <li key={songId} className="selected-song-li">
+                        <span className="selected-song-bullet">&#8226;</span>
+                        <div className="selected-song-details">
+                          <span className="selected-song-title">{songs[songId].title}</span>
+                          <span className="selected-song-artist">
+                            - {songs[songId].Artist.firstName} {songs[songId].Artist.lastName}
+                          </span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </React.Fragment>
+              ) : (
+                <div>No songs selected.</div>
+              )}
             </div>
-            <button className="add-playlist-button" type="submit">Create Playlist</button>
+            <button className="add-playlist-button" type="submit">
+              Create Playlist
+            </button>
           </div>
         </div>
       </form>

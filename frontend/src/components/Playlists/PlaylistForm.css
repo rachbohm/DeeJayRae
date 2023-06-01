@@ -1,5 +1,3 @@
-/* style it with css like songForm.css */
-
 .add-playlist-container {
   display: flex;
   justify-content: center;
@@ -35,9 +33,10 @@
 }
 
 .search-bar:hover {
-  background-color:#ff8533;
+  background-color: #ff8533;
   border: 1px solid white;
 }
+
 .error-message {
   color: red;
   margin-bottom: 10px;
@@ -65,7 +64,8 @@
   color: white;
 }
 
-.add-playlist-button {
+.add-playlist-button,
+.clear-songs-button {
   padding: 8px;
   font-size: 12px;
   background-color: #ff5500;
@@ -73,9 +73,10 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin: 10px;
 }
 
-.add-playlist-button:hover {
+.add-playlist-button:hover, .clear-songs-button:hover {
   background-color: #ff8533;
 }
 
@@ -85,7 +86,7 @@
   justify-content: start;
   align-items: start;
   background-color: white;
-  padding:20px;
+  padding: 20px;
   border: 1px solid #ff5500;
   border-radius: 10px;
 }
@@ -107,7 +108,11 @@
   cursor: pointer;
 }
 
-.song-checkboxes div:checked {
+.song-checkboxes div input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.song-checkboxes div input[type="checkbox"]:checked {
   background-color: #ff5500;
   color: white;
 }
@@ -121,10 +126,19 @@
   display: flex;
   flex-direction: column;
   background-color: white;
-  padding:20px;
+  padding: 20px;
   border: 1px solid #ff5500;
   border-radius: 10px;
   margin-bottom: 10px;
+}
+
+.selected-songs-title {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: "Lucida Grande", sans-serif;
 }
 
 .selected-songs-and-button {
@@ -132,4 +146,37 @@
   flex-direction: column;
   align-items: center;
   margin: 0px 0px 0px 20px;
+}
+
+.selected-songs-list {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  padding-right: 40px;
+}
+
+.selected-song-li {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  margin: 10px;
+}
+
+.selected-song-bullet {
+  margin-right: 5px;
+}
+
+.selected-song-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.selected-song-title {
+  font-weight: bold;
+}
+
+.selected-song-artist {
+  margin-top: 5px;
+  font-style: italic;
 }
