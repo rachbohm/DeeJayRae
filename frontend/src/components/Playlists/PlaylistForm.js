@@ -40,13 +40,15 @@ export default function PlaylistForm() {
       songIds: selectedSongs,
     };
 
-    try {
-      await dispatch(createPlaylistThunk(payload));
-      window.alert('Playlist successfully created');
-      history.push('/playlists');
-    } catch (res) {
-      const data = await res.json();
-      if (data.errors) setErrors(data.errors);
+    if (window.confirm("Are you sure you want to create this playlist?")) {
+      try {
+        await dispatch(createPlaylistThunk(payload));
+        window.alert('Playlist successfully created');
+        history.push('/playlists');
+      } catch (res) {
+        const data = await res.json();
+        if (data.errors) setErrors(data.errors);
+      }
     }
   };
 
@@ -60,7 +62,15 @@ export default function PlaylistForm() {
     });
   };
 
-  const handleClearAll = () => {
+  const handleClearOne = (e, songId) => {
+    e.preventDefault();
+    setSelectedSongs(prevSelectedSongs => {
+      return prevSelectedSongs.filter(id => id !== songId);
+    });
+  };
+
+  const handleClearAll = (e) => {
+    e.preventDefault();
     setSelectedSongs([]);
   };
 
@@ -92,14 +102,19 @@ export default function PlaylistForm() {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <label className="add-playlist-label">Preview Image URL</label>
-        <input
-          className="add-playlist-input"
-          type="text"
-          value={previewImage}
-          onChange={(e) => setPreviewImage(e.target.value)}
-          required
-        />
+        <div className='preview-image-container'>
+          <label className="add-playlist-label preview-image-label">Preview Image URL</label>
+          <div className="preview-image-input-container">
+            <input
+              className="add-playlist-input preview-image-input"
+              type="text"
+              value={previewImage}
+              onChange={(e) => setPreviewImage(e.target.value)}
+              required
+            />
+            <img className='preview-image' src={previewImage} alt='Preview' />
+          </div>
+        </div>
         <label className="add-playlist-label select-songs">Select Songs</label>
         <input
           className="search-bar"
@@ -137,18 +152,21 @@ export default function PlaylistForm() {
               <span className="selected-songs-title">Selected Songs:</span>
               {selectedSongs.length > 0 ? (
                 <React.Fragment>
-                  <button className="clear-songs-button" onClick={handleClearAll}>Clear All</button>
+                  <button className="clear-songs-button" onClick={(e)=>handleClearAll(e)}>Clear All</button>
                   <ul className="selected-songs-list">
                     {selectedSongs.map((songId) => (
-                      <li key={songId} className="selected-song-li">
-                        <span className="selected-song-bullet">&#8226;</span>
-                        <div className="selected-song-details">
-                          <span className="selected-song-title">{songs[songId].title}</span>
-                          <span className="selected-song-artist">
-                            - {songs[songId].Artist.firstName} {songs[songId].Artist.lastName}
-                          </span>
-                        </div>
-                      </li>
+                      <div className='selected-song-container'>
+                        <li key={songId} className="selected-song-li">
+                          <span className="selected-song-bullet">&#8226;</span>
+                          <div className="selected-song-details">
+                            <span className="selected-song-title">{songs[songId].title}</span>
+                            <span className="selected-song-artist">
+                              - {songs[songId].Artist.firstName} {songs[songId].Artist.lastName}
+                            </span>
+                          </div>
+                        </li>
+                        <button type="button" className="clear-song-button" onClick={(e) => handleClearOne(e, songId)}>Remove</button>
+                      </div>
                     ))}
                   </ul>
                 </React.Fragment>

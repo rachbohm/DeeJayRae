@@ -110,7 +110,7 @@ const playlistsReducer = (state = initialState, action) => {
       delete newState[action.playlistId];
       return newState;
     case UPDATE_PLAYLIST:
-      return { ...state, [action.playlist.id]: action.playlist };
+      return {  };
     case LOAD_PLAYLIST:
       return { ...state, [action.playlist.id]: action.playlist };
     default:

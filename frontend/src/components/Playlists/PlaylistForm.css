@@ -65,7 +65,8 @@
 }
 
 .add-playlist-button,
-.clear-songs-button {
+.clear-songs-button,
+.clear-song-button {
   padding: 8px;
   font-size: 12px;
   background-color: #ff5500;
@@ -73,11 +74,17 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 10px;
+  max-width: fit-content;
 }
 
-.add-playlist-button:hover, .clear-songs-button:hover {
+.add-playlist-button:hover,
+.clear-songs-button:hover,
+.clear-song-button:hover {
   background-color: #ff8533;
+}
+
+.clear-song-button {
+  margin-left: 20px;
 }
 
 .song-checkboxes {
@@ -125,6 +132,7 @@
 .selected-songs {
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: white;
   padding: 20px;
   border: 1px solid #ff5500;
@@ -152,14 +160,14 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  justify-content: start;
+  justify-content: space-between;
   padding-right: 40px;
 }
 
 .selected-song-li {
   display: flex;
   align-items: start;
-  justify-content: start;
+  justify-content: center;
   margin: 10px;
 }
 
@@ -179,4 +187,12 @@
 .selected-song-artist {
   margin-top: 5px;
   font-style: italic;
+}
+
+.selected-song-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
 }

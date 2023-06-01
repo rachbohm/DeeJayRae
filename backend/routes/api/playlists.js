@@ -87,7 +87,7 @@ router.post('/', requireAuth, validatePlaylist, async (req, res, next) => {
       }
     }
   }
-  
+
   res.json(newPlaylist)
 });
 
@@ -95,7 +95,7 @@ router.post('/', requireAuth, validatePlaylist, async (req, res, next) => {
 router.put('/:playlistId', requireAuth, validatePlaylist, async (req, res, next) => {
   const { user } = req;
   const { playlistId } = req.params;
-  const { name, imageUrl } = req.body;
+  const { name, previewImage, songIds } = req.body;
 
   const targetPlaylist = await Playlist.findByPk(playlistId);
 
@@ -109,8 +109,13 @@ router.put('/:playlistId', requireAuth, validatePlaylist, async (req, res, next)
   if (targetPlaylist.userId === user.id) {
 
     targetPlaylist.name = name;
-    targetPlaylist.previewImage = imageUrl;
+    targetPlaylist.previewImage = previewImage;
 
+    await targetPlaylist.save();
+
+    //replace the songs in the playlist with the new songs
+    await targetPlaylist.setSongs(songIds);
+    
     res.json(targetPlaylist)
   } else {
     const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
@@ -137,6 +142,9 @@ router.get('/', async (req, res, next) => {
     include: [
       {
         model: User
+      },
+      {
+        model: Song,
       }
     ]
   });

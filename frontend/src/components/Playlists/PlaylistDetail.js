@@ -14,7 +14,6 @@ const PlaylistDetail = () => {
   useEffect(() => {
     dispatch(loadPlaylistThunk(playlistId)).then((loadedPlaylist) => {
       setIsLoaded(true);
-      console.log('loadedPlaylist: ', loadedPlaylist)
     });
 
   }, [dispatch, playlistId]);
