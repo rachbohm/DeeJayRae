@@ -3,6 +3,8 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Song, Album, Playlist } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
+const asyncHandler = require('express-async-handler');
 const newError = require('../../utils/newError');
 const router = express.Router();
 
@@ -34,10 +36,11 @@ const validateSignup = [
 //sign up a user
 router.post(
   '/',
+  singleMulterUpload("image"),
   validateSignup,
-  async (req, res, next) => {
+  asyncHandler(async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
-
+    const profileImageUrl = await singlePublicFileUpload(req.file);
     const emailExists = await User.findAll({
       where: {
         email
@@ -63,10 +66,17 @@ router.post(
         "User already exists",
         "A user with the provided username already exists",
         ["A user with the provided username already exists"]);
-       return next(err);
+      return next(err);
     }
 
-    const user = await User.signup({ email, username, password, firstName, lastName });
+    const user = await User.signup({
+      email,
+      username,
+      password,
+      firstName,
+      lastName,
+      profileImageUrl
+    });
 
     const token = await setTokenCookie(res, user);
     user.dataValues.token = token;
@@ -74,7 +84,7 @@ router.post(
     return res.json(
       user
     );
-  }
+  })
 );
 
 //get all playlists of an artist from an id

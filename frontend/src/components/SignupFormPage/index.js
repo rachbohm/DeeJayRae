@@ -13,6 +13,7 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [image, setImage] = useState(null);
   const [errors, setErrors] = useState([]);
 
   if (sessionUser.id) return <Redirect to="/" />;
@@ -21,7 +22,7 @@ function SignupFormPage() {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password, firstName, lastName }))
+      return dispatch(sessionActions.signup({ email, username, password, firstName, lastName, image }))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
@@ -35,6 +36,11 @@ function SignupFormPage() {
     <Redirect to="/" />
     return dispatch(sessionActions.demoLoginThunk())
   }
+
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setImage(file);
+  };
 
   return (
     <div className="signup-form-container">
@@ -108,6 +114,17 @@ function SignupFormPage() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+
+        </label>
+        <label htmlFor="image">
+          Image
+          <input
+            type="file"
+            className="signup-input"
+            onChange={updateFile}
+            required
+          />
+
         </label>
         <button type="submit" className="signup-button">Sign Up</button>
       </form>
