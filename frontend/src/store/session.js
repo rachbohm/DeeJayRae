@@ -82,7 +82,7 @@ export const signup = (user) => async (dispatch) => {
     },
     body: formData,
   });
-
+  console.log('res', res)
   const data = await res.json();
   dispatch(setUser(data.user));
   return res;
@@ -103,6 +103,7 @@ const sessionReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case SET_USER:
+      console.log('action.payload', action.payload)
       newState = Object.assign({}, state);
       newState.user = action.payload;
       return newState;

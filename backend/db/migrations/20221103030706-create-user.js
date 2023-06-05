@@ -26,7 +26,7 @@ module.exports = {
       lastName: {
         type: Sequelize.STRING(256)
       },
-      previewImage: {
+      profileImageUrl: {
         type: Sequelize.STRING
       },
       email: {

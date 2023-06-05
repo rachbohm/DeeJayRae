@@ -41,6 +41,7 @@ router.post(
   asyncHandler(async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
     const profileImageUrl = await singlePublicFileUpload(req.file);
+    console.log('profileImageUrl', profileImageUrl)
     const emailExists = await User.findAll({
       where: {
         email
@@ -80,7 +81,7 @@ router.post(
 
     const token = await setTokenCookie(res, user);
     user.dataValues.token = token;
-
+    console.log('user', user)
     return res.json(
       user
     );

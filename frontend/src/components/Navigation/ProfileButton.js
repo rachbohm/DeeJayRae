@@ -59,6 +59,7 @@ function ProfileButton({ user }) {
         <ul className="profile-dropdown">
           <li className="profile-info">{user.username}</li>
           <li className="profile-info">{user.email}</li>
+          <img className="profile-image" src={user.profileImageUrl} alt="Profile" />
           <div className="song-list">
             <span className="song-list-title">My Songs:</span>
             {mySongsArr.map((song) => (
