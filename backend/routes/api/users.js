@@ -40,8 +40,11 @@ router.post(
   validateSignup,
   asyncHandler(async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
-    const profileImageUrl = await singlePublicFileUpload(req.file);
-    console.log('profileImageUrl', profileImageUrl)
+    let profileImageUrl = "https://storroom.com/wp-content/uploads/2019/02/default-user.png"
+    if (req.file) {
+      profileImageUrl = await singlePublicFileUpload(req.file);
+    }
+
     const emailExists = await User.findAll({
       where: {
         email

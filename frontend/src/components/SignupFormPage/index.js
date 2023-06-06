@@ -22,7 +22,15 @@ function SignupFormPage() {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password, firstName, lastName, image }))
+      const user = {
+        email,
+        username,
+        password,
+        firstName,
+        lastName,
+      }
+      if(image) user.image = image;
+      return dispatch(sessionActions.signup(user))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
@@ -122,7 +130,7 @@ function SignupFormPage() {
             type="file"
             className="signup-input"
             onChange={updateFile}
-            required
+            // required
           />
 
         </label>

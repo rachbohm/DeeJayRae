@@ -59,7 +59,7 @@ function ProfileButton({ user }) {
         <ul className="profile-dropdown">
           <li className="profile-info">{user.username}</li>
           <li className="profile-info">{user.email}</li>
-          <img className="profile-image" src={user.profileImageUrl} alt="Profile" />
+          <img className="profile-image" src={user.profileImageUrl || "https://storroom.com/wp-content/uploads/2019/02/default-user.png"} alt="Profile" />
           <div className="song-list">
             <span className="song-list-title">My Songs:</span>
             {mySongsArr.map((song) => (
