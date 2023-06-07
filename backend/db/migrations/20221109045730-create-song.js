@@ -42,6 +42,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      audioFile: {
+        type: Sequelize.STRING
+      },
       previewImage: {
         type: Sequelize.STRING
       },

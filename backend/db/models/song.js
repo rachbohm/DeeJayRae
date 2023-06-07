@@ -42,7 +42,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    previewImage: DataTypes.STRING
+    previewImage: DataTypes.STRING,
+    audioFile: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Song',
@@ -50,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
       noPlaylistSong: {
         attributes: {
           include:  ["id", "userId", "albumId", "title",
-                "description", "url", "previewImage", "createdAt", "updatedAt"],
+                "description", "url", "previewImage", "audioFile", "createdAt", "updatedAt"],
           exclude: ["PlaylistSong"]
         }
       }

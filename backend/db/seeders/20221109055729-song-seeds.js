@@ -7,7 +7,8 @@ const songSeeds = [
     title: 'My First Song',
     description: 'amateur but fun',
     url: 'fakeurl.com',
-    previewImage: 'https://images.squarespace-cdn.com/content/v1/5d05221ec14ff000014e4fea/1568759626270-27MI0R53HIBRM33YRCHB/That+First+Song+Logo-blue-mid.png'
+    previewImage: 'https://images.squarespace-cdn.com/content/v1/5d05221ec14ff000014e4fea/1568759626270-27MI0R53HIBRM33YRCHB/That+First+Song+Logo-blue-mid.png',
+    audioFile: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
   },
   {
     userId: 2,
@@ -15,7 +16,8 @@ const songSeeds = [
     title: 'Reservoir',
     description: 'meditative',
     url: 'fakeurl.com',
-    previewImage: 'https://f4.bcbits.com/img/a0050101651_10.jpg'
+    previewImage: 'https://f4.bcbits.com/img/a0050101651_10.jpg',
+    audioFile: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'
   },
   {
     userId: 2,

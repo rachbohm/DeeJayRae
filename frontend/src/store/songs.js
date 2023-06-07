@@ -34,19 +34,27 @@ const loadSongAction = (song) => ({
 
 //THUNKS
 export const createSongThunk = (payload) => async (dispatch) => {
+  console.log("payload entering thunk", payload)
+  const { title, description, url, imageUrl, albumId, audioFile } = payload;
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("description", description);
+  formData.append("url", url);
+  formData.append("imageUrl", imageUrl);
+  formData.append("albumId", albumId);
+  formData.append("audioFile", audioFile);
 
   const res = await csrfFetch('/api/songs', {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    headers: { "Content-Type": "multipart/form-data" },
+    body: formData
   });
 
-  if (res.ok) {
-    const song = await res.json();
-    dispatch(addSongAction(song));
-    return song;
-  }
-  return res;
+
+    const data = await res.json();
+    dispatch(addSongAction(data.song));
+    return res;
+
 };
 
 export const loadAllSongsThunk = () => async dispatch => {

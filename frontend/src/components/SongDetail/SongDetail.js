@@ -41,6 +41,9 @@ const SongDetail = () => {
   return isLoaded && (
     <>
       <h1 className="song-detail-title">{song.title}</h1>
+      <div className="audio-player">
+        <audio controls src={song.audioFile} />
+      </div>
       <div className="song-detail-container">
         {song && (
           <>

@@ -55,6 +55,7 @@ export const restoreUser = () => async dispatch => {
 };
 
 export const signup = (user) => async (dispatch) => {
+  console.log("user entering thunk", user)
   const { username, email, password, firstName, lastName, images, image } = user;
 
   const formData = new FormData();
@@ -82,7 +83,7 @@ export const signup = (user) => async (dispatch) => {
     },
     body: formData,
   });
-  console.log('res', res)
+
   const data = await res.json();
   dispatch(setUser(data.user));
   return res;

@@ -3,6 +3,8 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Song, Album, Comment } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
+const asyncHandler = require('express-async-handler');
 const newError = require('../../utils/newError');
 const router = express.Router();
 
@@ -212,34 +214,43 @@ const validateSong = [
   handleValidationErrors
 ];
 
-router.post('/', requireAuth, validateSong, async (req, res, next) => {
-  const { user } = req;
-  const { title, description, url, imageUrl, albumId } = req.body;
+router.post('/', singleMulterUpload("audioFile"),
+  requireAuth,
+  validateSong,
+  asyncHandler(async (req, res, next) => {
+    const { user } = req;
+    const { title, description, url, imageUrl, albumId } = req.body;
+    console.log("~~~~~~~~~~~~~~~~~~~~req.file received in backend", req.file);
+    let audioFile = await singlePublicFileUpload(req.file);
+    const albumExists = await Album.findByPk(albumId);
 
-  const albumExists = await Album.findByPk(albumId);
+    if (!albumExists) {
+      const err = new Error("Album id does not exist");
+      err.errors = [
+        "Album does not exist with the provided id"
+      ]
+      err.status = 404;
+      return next(err)
+    };
 
-  if (!albumExists) {
-    const err = new Error("Album id does not exist");
-    err.errors = [
-      "Album does not exist with the provided id"
-    ]
-    err.status = 404;
-    return next(err)
-  };
+    const newSong = await Song.create({
+      userId: user.id,
+      title,
+      description,
+      url,
+      previewImage: imageUrl,
+      albumId,
+      audioFile
+    });
 
-  const newSong = await Song.create({
-    userId: user.id,
-    title,
-    description,
-    url,
-    previewImage: imageUrl,
-    albumId
-  });
+    console.log("~~~~~~~~~~~~~~~~~~~~newSong", newSong)
 
-  return res.json(
-    newSong
-  );
-});
+    return res.json({
+      newSong
+    });
+  })
+);
+
 //delete a song
 router.delete('/:songId', requireAuth, async (req, res, next) => {
   const { user } = req;

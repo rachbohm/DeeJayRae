@@ -23,6 +23,7 @@ export default function SongForm() {
   const [url, setUrl] = useState('');
   const [imageUrl, setImageUrl] = useState('https://png.pngtree.com/png-clipart/20221006/original/pngtree-music-notes-png-image_8660757.png');
   const [albumId, setAlbumId] = useState('');
+  const [audioFile, setAudioFile] = useState(null);
 
   const [errors, setErrors] = useState([]);
 
@@ -37,6 +38,7 @@ export default function SongForm() {
       url,
       imageUrl,
       albumId,
+      audioFile,
     };
 
     await dispatch(createSongThunk(payload))
@@ -46,12 +48,18 @@ export default function SongForm() {
         setUrl('');
         setImageUrl('');
         setAlbumId('');
+        setAudioFile(null);
         window.alert('Song successfully created');
         history.push('/');
       }).catch(async res => {
         const data = await res.json();
         if (data.errors) setErrors(data.errors);
       });
+  };
+
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setAudioFile(file);
   };
 
   return sessionUser.id && isLoaded ? (
@@ -134,6 +142,14 @@ export default function SongForm() {
               </option>
             ))}
           </select>
+        </div>
+        <div className="input-container">
+          <label htmlFor="audioFile" className="input-label">
+            Audio File
+          </label>
+          <input type="file" accept="audio/*" onChange={updateFile}
+            required
+          />
         </div>
         <button type="submit" className="add-song-button">
           Submit
