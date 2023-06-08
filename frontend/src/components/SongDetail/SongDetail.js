@@ -73,10 +73,6 @@ const SongDetail = () => {
                     <td>Description:</td>
                     <td>{song.description}</td>
                   </tr>
-                  <tr>
-                    <td>Url:</td>
-                    <td>{song.url}</td>
-                  </tr>
                 </tbody>
               </table>
               {isOwner && (

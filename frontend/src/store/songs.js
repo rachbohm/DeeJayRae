@@ -49,8 +49,6 @@ export const createSongThunk = (payload) => async (dispatch) => {
     headers: { "Content-Type": "multipart/form-data" },
     body: formData
   });
-
-
     const data = await res.json();
     dispatch(addSongAction(data.song));
     return res;
@@ -78,18 +76,31 @@ export const deleteSongThunk = (songId) => async dispatch => {
 };
 
 export const editSongThunk = (payload, id) => async (dispatch) => {
+  const { title, description, imageUrl, audioFile } = payload;
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("description", description);
+  formData.append("imageUrl", imageUrl);
+
+  if (audioFile) {
+    // Append audioFile to formData only if it exists
+    formData.append("audioFile", audioFile);
+  }
 
   const res = await csrfFetch(`/api/songs/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    headers: { "Content-Type": "multipart/form-data" },
+    body: formData,
   });
 
   if (res.ok) {
     const song = await res.json();
     dispatch(updateSongAction(song));
+    return res;
   }
+  return res;
 };
+
 
 export const getSingleSongThunk = (id) => async (dispatch) => {
   const res = await csrfFetch(`/api/songs/${id}`);
@@ -121,6 +132,7 @@ const songReducer = (state = initialState, action) => {
       delete newState[action.songId];
       return newState;
     case UPDATE_SONG:
+      console.log("action", action)
       newState = { ...state }
       newState[action.song.id] = action.song
       return newState;

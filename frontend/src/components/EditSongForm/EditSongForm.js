@@ -12,8 +12,8 @@ const EditSongForm = ({ song }) => {
 
   const [title, setTitle] = useState(song.title)
   const [description, setDescription] = useState(song.description)
-  const [url, setUrl] = useState(song.url)
-  const [imageUrl, setImageUrl] = useState(song.previewImage)
+  const [imageUrl, setImageUrl] = useState(song.previewImage);
+  const [audioFile, setAudioFile] = useState(song.audioFile);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,9 +21,13 @@ const EditSongForm = ({ song }) => {
     const payload = {
       title,
       description,
-      url,
-      imageUrl
+      imageUrl,
     };
+
+    // Include audioFile in payload only if it has changed
+    if (audioFile !== song.audioFile) {
+      payload.audioFile = audioFile;
+    }
 
     try {
       await dispatch(editSongThunk(payload, songId));
@@ -35,6 +39,11 @@ const EditSongForm = ({ song }) => {
   };
 
 
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setAudioFile(file);
+    else setAudioFile(song.audioFile);
+  };
 
   return sessionUser.id ? (
     <form className="edit-song-form" onSubmit={handleSubmit}>
@@ -46,14 +55,6 @@ const EditSongForm = ({ song }) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Song Title"
-      />
-      <label htmlFor="url">Song URL</label>
-      <input
-        type="text"
-        id="url"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        placeholder="Song URL"
       />
       <label htmlFor="imageUrl">Image URL</label>
       <input
@@ -70,6 +71,12 @@ const EditSongForm = ({ song }) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Description"
+      />
+      <label htmlFor="audioFile">Audio File</label>
+      <input
+        type="file" accept="audio/*" onChange={updateFile}
+        id="audioFile"
+        placeholder="Audio File"
       />
       <button type="submit">Submit</button>
     </form>

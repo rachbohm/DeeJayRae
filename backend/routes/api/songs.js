@@ -8,44 +8,72 @@ const asyncHandler = require('express-async-handler');
 const newError = require('../../utils/newError');
 const router = express.Router();
 
-//edit a song
-router.put('/:songId', requireAuth, async (req, res, next) => {
-  const { songId } = req.params;
-  const { title, description, url, imageUrl } = req.body;
-  const userId = req.user.id;
+// edit a song
+router.put('/:songId', singleMulterUpload("audioFile"),
+  requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const { songId } = req.params;
+    const { title, description, imageUrl } = req.body;
+    const userId = req.user.id;
+    let audioFile = null;
 
-  const targetSong = await Song.findByPk(songId);
+    if (req.file) {
+      audioFile = await singlePublicFileUpload(req.file);
+    }
 
-  if (!targetSong) {
-    const err = new Error("Song not found")
-    err.status = 404;
-    err.errors = ["Song couldn't be found"];
-    return next(err)
-  }
+    const targetSong = await Song.findByPk(songId);
 
-  if (targetSong.userId === userId) {
-    targetSong.title = title;
-    targetSong.description = description;
-    targetSong.url = url;
-    targetSong.previewImage = imageUrl;
-    await targetSong.save();
+    if (!targetSong) {
+      const err = new Error("Song not found")
+      err.status = 404;
+      err.errors = ["Song couldn't be found"];
+      return next(err)
+    }
 
-    const resSong = await Song.findByPk(targetSong.id, {
-      include: [
-        {
-          model: User,
-          as: 'Artist',
-        },
-      ]
-    })
-    return res.json(resSong);
-  } else {
-    const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
-      'Current user is unauthorized'
-    ])
-    return next(err);
-  }
-})
+    if (targetSong.userId === userId) {
+      targetSong.title = title;
+      targetSong.description = description;
+
+      if (audioFile) {
+        // Update audioFile only if it exists
+        targetSong.audioFile = audioFile;
+      }
+
+      targetSong.previewImage = imageUrl;
+      await targetSong.save();
+
+      const resSong = await Song.findByPk(targetSong.id, {
+        include: [
+          {
+            model: User,
+            as: 'Artist',
+          },
+          {
+            model: Album,
+            attributes: {
+              exclude: [
+                "userId",
+                "description",
+                "createdAt",
+                "updatedAt"
+              ]
+            }
+          }
+        ]
+      });
+
+      return res.json(
+        resSong
+      );
+    } else {
+      const err = newError(403, 'Unauthorized', 'Current user is unauthorized', [
+        'Current user is unauthorized'
+      ])
+      return next(err);
+    }
+  })
+);
+
 
 //get all comments by song id
 router.get('/:songId/comments', async (req, res, next) => {
@@ -219,7 +247,7 @@ router.post('/', singleMulterUpload("audioFile"),
   validateSong,
   asyncHandler(async (req, res, next) => {
     const { user } = req;
-    const { title, description, url, imageUrl, albumId } = req.body;
+    const { title, description, imageUrl, albumId } = req.body;
     console.log("~~~~~~~~~~~~~~~~~~~~req.file received in backend", req.file);
     let audioFile = await singlePublicFileUpload(req.file);
     const albumExists = await Album.findByPk(albumId);
@@ -237,7 +265,6 @@ router.post('/', singleMulterUpload("audioFile"),
       userId: user.id,
       title,
       description,
-      url,
       previewImage: imageUrl,
       albumId,
       audioFile

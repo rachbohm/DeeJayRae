@@ -20,7 +20,6 @@ export default function SongForm() {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [url, setUrl] = useState('');
   const [imageUrl, setImageUrl] = useState('https://png.pngtree.com/png-clipart/20221006/original/pngtree-music-notes-png-image_8660757.png');
   const [albumId, setAlbumId] = useState('');
   const [audioFile, setAudioFile] = useState(null);
@@ -35,7 +34,6 @@ export default function SongForm() {
     const payload = {
       title,
       description,
-      url,
       imageUrl,
       albumId,
       audioFile,
@@ -45,7 +43,6 @@ export default function SongForm() {
       .then(() => {
         setTitle('');
         setDescription('');
-        setUrl('');
         setImageUrl('');
         setAlbumId('');
         setAudioFile(null);
@@ -80,20 +77,6 @@ export default function SongForm() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter a song title"
-            required={true}
-          />
-        </div>
-        <div className="input-container">
-          <label htmlFor="url" className="input-label">
-            Song URL
-          </label>
-          <input
-            type="text"
-            id="url"
-            className="add-song-input"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="Enter a song URL"
             required={true}
           />
         </div>
