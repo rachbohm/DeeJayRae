@@ -10,13 +10,13 @@ const albumSeeds = [
   },
   {
     userId: 2,
-    title: 'Pellucidity',
+    title: 'Tea For the Tillerman',
     description: 'mellow and acoustic',
     previewImage: 'fakeurl.com'
   },
   {
     userId: 3,
-    title: 'Mink Car',
+    title: 'They Might Be Giants (album)',
     description: 'quirky rock',
     previewImage: 'fake.com'
   },

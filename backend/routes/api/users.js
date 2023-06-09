@@ -91,6 +91,39 @@ router.post(
   })
 );
 
+//edit a user profile picture
+router.put('/:userId', singleMulterUpload("image"),
+  requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const { userId } = req.params;
+
+    let profileImageUrl = await singlePublicFileUpload(req.file);
+
+    const targetUser = await User.findByPk(userId);
+
+    if (!targetUser) {
+      const err = new Error("User not found")
+      err.status = 404;
+      err.errors = ["User couldn't be found"];
+      return next(err)
+    }
+
+    if (targetUser.id === req.user.id) {
+
+        targetUser.profileImageUrl = profileImageUrl;
+
+      await targetUser.save();
+
+      return res.json(targetUser);
+    } else {
+      const err = new Error("Unauthorized")
+      err.status = 401;
+      err.errors = ["Unauthorized"];
+      return next(err)
+    }
+  })
+);
+
 //get all playlists of an artist from an id
 router.get('/:artistId/playlists', async (req, res, next) => {
   const artistId = req.params.artistId;

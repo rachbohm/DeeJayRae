@@ -20,6 +20,17 @@
   font-size: 14pt;
 }
 
+.change-profile-pic {
+  background-color: #FF5500;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
 .profile-dropdown {
   position: absolute;
   top: 100%;

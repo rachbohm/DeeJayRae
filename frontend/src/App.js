@@ -11,6 +11,7 @@ import PlaylistList from "./components/Playlists/PlaylistList";
 import PlaylistDetail from "./components/Playlists/PlaylistDetail";
 import PlaylistForm from "./components/Playlists/PlaylistForm";
 import EditPlaylist from "./components/Playlists/EditPlaylist";
+import Profile from "./components/Navigation/Profile";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -34,6 +35,10 @@ function App() {
             <About />
             <SignupFormPage />
           </Route>
+          {/* <Route exact path="/profile">
+            <About />
+            <Profile />
+          </Route> */}
           <Route exact path="/songs/new">
             <About />
             <SongForm />

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import { loadMySongsThunk } from "../../store/current";
 import { loadAllPlaylistsThunk } from "../../store/playlists";
+import { loadAllSongsThunk } from "../../store/songs";
 import { NavLink } from "react-router-dom";
 import './ProfileButton.css';
 
@@ -35,8 +36,10 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
-  const mySongs = useSelector(state => state.currentState);
-  const mySongsArr = Object.values(mySongs);
+  const mySongs = useSelector(state => {
+    const songs = state.songsState;
+    return Object.values(songs).filter(song => song.userId === userId);
+  });
 
   const myPlaylists = useSelector(state => {
     const playlists = state.playlistsState;
@@ -44,11 +47,12 @@ function ProfileButton({ user }) {
   });
 
   useEffect(() => {
-    dispatch(loadMySongsThunk());
+    dispatch(loadAllSongsThunk());
     dispatch(loadAllPlaylistsThunk()).then(() => {
       setIsLoaded(true);
     });
   }, [dispatch, userId]);
+
 
   return (
     <div className="profile-button-container">
@@ -60,22 +64,32 @@ function ProfileButton({ user }) {
           <li className="profile-info">{user.username}</li>
           <li className="profile-info">{user.email}</li>
           <img className="profile-image" src={user.profileImageUrl || "https://storroom.com/wp-content/uploads/2019/02/default-user.png"} alt="Profile" />
+          {/* <NavLink className="change-profile-pic" to="/profile">Change Profile Picture</NavLink> */}
           <div className="song-list">
             <span className="song-list-title">My Songs:</span>
-            {mySongsArr.map((song) => (
-              <NavLink key={song.id} className="my-song-title" to={`/songs/${song.id}`}>
-                {song.title}
-              </NavLink>
-            ))}
+            {mySongs && mySongs.length > 0 ? (
+              mySongs.map((song) => (
+                <NavLink key={song.id} className="my-song-title" to={`/songs/${song.id}`}>
+                  {song.title}
+                </NavLink>
+              ))
+            ) : (
+              <p>You have no songs.</p>
+            )}
           </div>
+
           {isLoaded && (
             <div className="song-list">
               <span className="song-list-title">My Playlists:</span>
-              {myPlaylists.map((playlist) => (
+              {myPlaylists && myPlaylists.length > 0 ? (
+                myPlaylists.map((playlist) => (
                 <NavLink key={playlist.id} className="my-song-title" to={`/playlists/${playlist.id}`}>
                   {playlist.name}
                 </NavLink>
-              ))}
+                ))
+              ) : (
+                <p>You have no playlists.</p>
+              )}
             </div>
           )}
           <li>

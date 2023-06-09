@@ -24,10 +24,10 @@ module.exports = {
       },
       {
         email: 'user1@user.io',
-        username: 'PellucidMoments',
+        username: 'Yusuf',
         hashedPassword: bcrypt.hashSync('password2'),
-        firstName: "Pellucidity",
-        lastName: "The Band",
+        firstName: "Cat",
+        lastName: "Stevens",
         profileImageUrl: "pretty@pic.com"
       },
       {
