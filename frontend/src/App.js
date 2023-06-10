@@ -11,7 +11,7 @@ import PlaylistList from "./components/Playlists/PlaylistList";
 import PlaylistDetail from "./components/Playlists/PlaylistDetail";
 import PlaylistForm from "./components/Playlists/PlaylistForm";
 import EditPlaylist from "./components/Playlists/EditPlaylist";
-import Profile from "./components/Navigation/Profile";
+// import Profile from "./components/Navigation/Profile";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
