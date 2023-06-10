@@ -237,8 +237,6 @@ const commentSeeds = [
     songId: 22,
     body: "The lyrics are poetic and profound. I'm moved by them."
   },
-
-  // Comments for song with songId: 23
   {
     userId: 2,
     songId: 23,
@@ -249,8 +247,6 @@ const commentSeeds = [
     songId: 23,
     body: "This track is perfect for chilling out and relaxing. So calming."
   },
-
-  // Comments for song with songId: 24
   {
     userId: 3,
     songId: 24,
@@ -290,7 +286,87 @@ const commentSeeds = [
     userId: 4,
     songId: 27,
     body: "The instrumental composition is like a magic carpet ride... I'm floating in musical bliss!"
-    }
+  },
+  {
+    userId: 1,
+    songId: 28,
+    body: "These lyrics are so relatable, they speak to my soul... and my cat's too!"
+  },
+  {
+    userId: 2,
+    songId: 28,
+    body: "I love this song so much I want to marry it!"
+  },
+  {
+    userId: 1,
+    songId: 29,
+    body: "These lyrics hit me right in the funny bone... and I can't stop giggling!"
+  },
+  {
+    userId: 4,
+    songId: 29,
+    body: "The instrumental composition is so mind-blowing, it's like a party in my headphones!"
+  },
+  {
+    userId: 1,
+    songId: 30,
+    body: "These lyrics are pure gold... I want to print them on a t-shirt and wear them everywhere!"
+  },
+  {
+    userId: 4,
+    songId: 30,
+    body: "The instrumental composition is like a magic carpet ride... I'm floating in musical bliss!"
+  },
+  {
+    userId: 1,
+    songId: 31,
+    body: "These lyrics are so relatable, they speak to my soul... and my cat's too!"
+  },
+  {
+    userId: 2,
+    songId: 31,
+    body: "I love this song so much I want to marry it!"
+  },
+  {
+    userId: 1,
+    songId: 32,
+    body: "These lyrics hit me right in the funny bone... and I can't stop giggling!"
+  },
+  {
+    userId: 4,
+    songId: 32,
+    body: "The instrumental composition is so mind-blowing, it's like a party in my headphones!"
+  },
+  {
+    userId: 1,
+    songId: 33,
+    body: "These lyrics are pure gold... I want to print them on a t-shirt and wear them everywhere!"
+  },
+  {
+    userId: 4,
+    songId: 33,
+    body: "The instrumental composition is like a magic carpet ride... I'm floating in musical bliss!"
+  },
+  {
+    userId: 1,
+    songId: 34,
+    body: "These lyrics are so relatable, they speak to my soul... and my cat's too!"
+  },
+  {
+    userId: 2,
+    songId: 34,
+    body: "I love this song so much I want to marry it!"
+  },
+  {
+    userId: 1,
+    songId: 35,
+    body: "These lyrics hit me right in the funny bone... and I can't stop giggling!"
+  },
+  {
+    userId: 4,
+    songId: 35,
+    body: "The instrumental composition is so mind-blowing, it's like a party in my headphones!"
+  }
 ];
 
 
