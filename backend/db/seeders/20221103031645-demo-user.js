@@ -20,7 +20,7 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password'),
         firstName: "Demo",
         lastName: "User",
-        profileImageUrl: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com"
+        profileImageUrl: "https://storroom.com/wp-content/uploads/2019/02/default-user.png"
       },
       {
         email: 'user1@user.io',
