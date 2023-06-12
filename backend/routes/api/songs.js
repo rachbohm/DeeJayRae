@@ -248,7 +248,7 @@ router.post('/', singleMulterUpload("audioFile"),
   asyncHandler(async (req, res, next) => {
     const { user } = req;
     const { title, description, imageUrl, albumId } = req.body;
-    console.log("~~~~~~~~~~~~~~~~~~~~req.file received in backend", req.file);
+    // console.log("~~~~~~~~~~~~~~~~~~~~req.file received in backend", req.file);
     let audioFile = await singlePublicFileUpload(req.file);
     const albumExists = await Album.findByPk(albumId);
 
@@ -270,7 +270,7 @@ router.post('/', singleMulterUpload("audioFile"),
       audioFile
     });
 
-    console.log("~~~~~~~~~~~~~~~~~~~~newSong", newSong)
+    // console.log("~~~~~~~~~~~~~~~~~~~~newSong", newSong)
 
     return res.json({
       newSong

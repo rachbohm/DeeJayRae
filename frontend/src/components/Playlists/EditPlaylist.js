@@ -16,7 +16,7 @@ export default function EditPlaylist() {
   const songs = useSelector(state => state.songsState);
 
   const playlistId = Number(history.location.pathname.split('/')[2]);
-  console.log('playlistId', playlistId)
+  // console.log('playlistId', playlistId)
 
   useEffect(() => {
     dispatch(loadAllPlaylistsThunk());

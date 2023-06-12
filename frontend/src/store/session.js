@@ -63,7 +63,7 @@ export const restoreUser = () => async dispatch => {
 };
 
 export const signup = (user) => async (dispatch) => {
-  console.log("user entering thunk", user)
+  // console.log("user entering thunk", user)
   const { username, email, password, firstName, lastName, images, image } = user;
 
   const formData = new FormData();
@@ -131,7 +131,7 @@ const sessionReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case SET_USER:
-      console.log('action.payload', action.payload)
+      // console.log('action.payload', action.payload)
       newState = Object.assign({}, state);
       newState.user = action.payload;
       return newState;
