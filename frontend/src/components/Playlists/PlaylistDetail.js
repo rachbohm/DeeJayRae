@@ -44,7 +44,7 @@ const PlaylistDetail = () => {
 
   const deleteHandler = () => {
     if (window.confirm("Are you sure you want to delete this playlist?")) {
-     dispatch(deletePlaylistThunk(playlist.id)).then(() => {
+      dispatch(deletePlaylistThunk(playlist.id)).then(() => {
         window.alert("Playlist successfully deleted.")
         history.push('/playlists')
       })
@@ -70,6 +70,19 @@ const PlaylistDetail = () => {
           }}
           ref={audioRef}
         />
+        <div className="playback-buttons">
+
+          <button className="back-button" onClick={() => {
+            setCurrentSongIndex((currentSongIndex - 1) % playlist.Songs.length);
+          }}>
+            Previous Song
+          </button>
+          <button className="skip-button" onClick={() => {
+            setCurrentSongIndex((currentSongIndex + 1) % playlist.Songs.length);
+          }}>
+            Next Song
+          </button>
+        </div>
       </div>
       <div className="playlist-detail-container">
         {playlist && (
@@ -92,16 +105,16 @@ const PlaylistDetail = () => {
                   </tr>
                 </tbody>
               </table>
-                {isOwner && (
-                  <div className="playlist-detail-buttons">
-                    <button className="playlist-detail-button" onClick={() => history.push(`/playlists/${playlist.id}/edit`)}>
-                      Edit Playlist
-                    </button>
-                    <button className="playlist-detail-button" onClick={deleteHandler}>
-                      Delete Playlist
-                    </button>
-                  </div>
-                )}
+              {isOwner && (
+                <div className="playlist-detail-buttons">
+                  <button className="playlist-detail-button" onClick={() => history.push(`/playlists/${playlist.id}/edit`)}>
+                    Edit Playlist
+                  </button>
+                  <button className="playlist-detail-button" onClick={deleteHandler}>
+                    Delete Playlist
+                  </button>
+                </div>
+              )}
             </div>
             <div className="playlist-songs-container">
               <h2 className="playlist-songs-title">Songs in this playlist:</h2>
