@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { loadPlaylistThunk, deletePlaylistThunk } from '../../store/playlists';
 import SongCard from '../SongCard/SongCard';
@@ -10,6 +10,8 @@ const PlaylistDetail = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     dispatch(loadPlaylistThunk(playlistId)).then((loadedPlaylist) => {
@@ -17,6 +19,13 @@ const PlaylistDetail = () => {
     });
 
   }, [dispatch, playlistId]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.load();
+      audioRef.current.play();
+    }
+  }, [currentSongIndex]);
 
   const playlist = useSelector(state => state.playlistsState[playlistId]);
 
@@ -49,6 +58,19 @@ const PlaylistDetail = () => {
     <div className="playlist-detail-container-1">
 
       <h1 className="playlist-detail-title">{playlist.name}</h1>
+      <div className="audio-player">
+        <div className="current-song-info">
+          Now playing: {playlist.Songs[currentSongIndex].title}
+        </div>
+        <audio
+          controls
+          src={playlist.Songs[currentSongIndex].audioFile}
+          onEnded={() => {
+            setCurrentSongIndex((currentSongIndex + 1) % playlist.Songs.length);
+          }}
+          ref={audioRef}
+        />
+      </div>
       <div className="playlist-detail-container">
         {playlist && (
           <>
