@@ -66,19 +66,32 @@ const PlaylistDetail = () => {
           controls
           src={playlist.Songs[currentSongIndex].audioFile}
           onEnded={() => {
-            setCurrentSongIndex((currentSongIndex + 1) % playlist.Songs.length);
-          }}
+            if (currentSongIndex === playlist.Songs.length - 1) {
+              setCurrentSongIndex(0);
+            } else {
+              setCurrentSongIndex((currentSongIndex + 1));
+            }
+          }
+          }
           ref={audioRef}
         />
         <div className="playback-buttons">
 
           <button className="back-button" onClick={() => {
-            setCurrentSongIndex((currentSongIndex - 1) % playlist.Songs.length);
+            if (currentSongIndex === 0) {
+              return;
+            } else {
+              setCurrentSongIndex((currentSongIndex - 1));
+            }
           }}>
             Previous Song
           </button>
           <button className="skip-button" onClick={() => {
-            setCurrentSongIndex((currentSongIndex + 1) % playlist.Songs.length);
+             if (currentSongIndex === playlist.Songs.length - 1) {
+              setCurrentSongIndex(0);
+            } else {
+              setCurrentSongIndex((currentSongIndex + 1));
+            }
           }}>
             Next Song
           </button>
