@@ -93,7 +93,8 @@
 }
 
 .skip-button,
-.back-button{
+.back-button,
+.play-song-button{
   padding: 8px;
   margin: 10px;
   font-size: 12px;
@@ -118,6 +119,14 @@
 }
 
 .skip-button:hover,
-.back-button:hover{
+.back-button:hover,
+.play-song-button:hover{
   background-color: #ff8533;
+}
+
+.card-and-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }

@@ -87,7 +87,7 @@ const PlaylistDetail = () => {
             Previous Song
           </button>
           <button className="skip-button" onClick={() => {
-             if (currentSongIndex === playlist.Songs.length - 1) {
+            if (currentSongIndex === playlist.Songs.length - 1) {
               setCurrentSongIndex(0);
             } else {
               setCurrentSongIndex((currentSongIndex + 1));
@@ -132,10 +132,19 @@ const PlaylistDetail = () => {
             <div className="playlist-songs-container">
               <h2 className="playlist-songs-title">Songs in this playlist:</h2>
               <div className="playlist-songs">
-                {playlist.Songs.map((song) => (
-                  <SongCard key={song.id} song={song} />
+                {playlist.Songs.map((song, index) => (
+                  <div className="card-and-button">
+                    <SongCard key={song.id} song={song} />
+                    <button className="play-song-button"
+                      onClick={() => {
+                        setCurrentSongIndex(index);
+                      }}
+                    >
+                      Play Song
+                    </button >
+                  </div>
                 ))}
-              </div>
+                  </div >
             </div>
           </>
         )}
