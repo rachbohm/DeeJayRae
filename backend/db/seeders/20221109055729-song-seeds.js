@@ -214,7 +214,7 @@ const songSeeds = [
     albumId: 5,
     title: 'Big Mistake',
     description: 'strong and powerful',
-    previewImage: "https://rachelsongbucket.s3.us-east-2.amazonaws.com/tmbg-image.jpeg",
+    previewImage: 'https://rachelsongbucket.s3.us-east-2.amazonaws.com/peter-cetera-image.jpeg',
     audioFile: 'https://rachelsongbucket.s3.us-east-2.amazonaws.com/01.+Peter+Cetera+-+Big+Mistake_sample.mp3'
   },
   {
