@@ -28,40 +28,40 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/login">
-            <About />
             <LoginFormPage />
+            <About />
           </Route>
           <Route exact path="/signup">
-            <About />
             <SignupFormPage />
+            <About />
           </Route>
           {/* <Route exact path="/profile">
             <About />
             <Profile />
           </Route> */}
           <Route exact path="/songs/new">
-            <About />
             <SongForm />
+            <About />
           </Route>
           <Route exact path="/songs/:songId">
-            <About />
             <SongDetail />
+            <About />
           </Route>
           <Route exact path="/playlists/new">
-            <About />
             <PlaylistForm />
+            <About />
           </Route>
           <Route exact path="/playlists/:playlistId/edit">
-            <About />
             <EditPlaylist />
+            <About />
           </Route>
           <Route exact path="/playlists/:playlistId">
             <About />
             <PlaylistDetail />
           </Route>
           <Route exact path="/playlists">
-            <About />
             <PlaylistList />
+            <About />
           </Route>
           <Route exact path="/">
             <SongList />
