@@ -16,7 +16,7 @@ export default function SongForm() {
   }, [dispatch]);
 
   const albums = useSelector(state => state.albumsState);
-  const albumsArr = Object.values(albums).sort((a, b) => b.id - a.id);
+  const albumsArr = Object.values(albums).filter((album) => album.userId === sessionUser.id).sort((a, b) => b.id - a.id);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -36,24 +36,20 @@ export default function SongForm() {
 
     setErrors([]);
 
-    const albumPayload = {}
     if (showNewAlbumForm) {
-      albumPayload = {
+      console.log('in showNewAlbumFor if statement')
+      const albumPayload = {
         title: newAlbumTitle,
         description: newAlbumDescription,
         imageUrl: newAlbumImageUrl
       }
+      await dispatch(createAlbumThunk(albumPayload))
+        .then((response) => {
+        console.log('response',response)
+        setAlbumId(response.id);
+        console.log('albumId set to', albumId)
+      });
     };
-
-    const albumResponse = await dispatch(createAlbumThunk(albumPayload));
-    const { albumId: createdAlbumId } = albumResponse.data;
-
-    if (albumResponse.errors) {
-      setErrors(albumResponse.errors);
-      return;
-    }
-
-    setAlbumId(createdAlbumId);
 
     const payload = {
       title,
@@ -65,11 +61,6 @@ export default function SongForm() {
 
     await dispatch(createSongThunk(payload))
       .then(() => {
-        setTitle('');
-        setDescription('');
-        setImageUrl('');
-        setAlbumId('');
-        setAudioFile(null);
         window.alert('Song successfully created');
         history.push('/');
       }).catch(async res => {
@@ -169,7 +160,7 @@ export default function SongForm() {
                 value={newAlbumTitle}
                 onChange={(e) => setNewAlbumTitle(e.target.value)}
                 placeholder="Enter album title"
-                require={true}
+                required
               />
             </div>
             <div className='input-container'>
@@ -182,7 +173,7 @@ export default function SongForm() {
                 value={newAlbumDescription}
                 onChange={(e) => setNewAlbumDescription(e.target.value)}
                 placeholder="Enter a description"
-                require={true}
+                required
               />
             </div>
             <div className='input-container'>
@@ -195,7 +186,7 @@ export default function SongForm() {
                 value={newAlbumImageUrl}
                 onChange={(e) => setNewAlbumImageUrl(e.target.value)}
                 placeholder="Enter album image URL"
-                require={true}
+                required
               />
             </div>
           </div>

@@ -125,7 +125,7 @@ function SignupFormPage() {
 
         </label>
         <label htmlFor="image">
-          Image
+          Image (optional)
           <input
             type="file"
             className="signup-input"
