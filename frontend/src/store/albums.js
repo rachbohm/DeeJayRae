@@ -52,7 +52,6 @@ export const loadAlbumThunk = (albumId) => async dispatch => {
 }
 
 export const createAlbumThunk = (payload) => async (dispatch) => {
-    console.log('payload in createAlbumThunk', payload)
     const res = await csrfFetch('/api/albums', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -62,7 +61,6 @@ export const createAlbumThunk = (payload) => async (dispatch) => {
     if (res.ok) {
       const album = await res.json();
       dispatch(addAlbumAction(album));
-      console.log('album', album)
       return album;
     }
     return res;

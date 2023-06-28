@@ -34,7 +34,6 @@ const loadSongAction = (song) => ({
 
 //THUNKS
 export const createSongThunk = (payload) => async (dispatch) => {
-  // console.log("payload entering thunk", payload)
   const { title, description, url, imageUrl, albumId, audioFile } = payload;
   const formData = new FormData();
   formData.append("title", title);
@@ -132,7 +131,6 @@ const songReducer = (state = initialState, action) => {
       delete newState[action.songId];
       return newState;
     case UPDATE_SONG:
-      // console.log("action", action)
       newState = { ...state }
       newState[action.song.id] = action.song
       return newState;

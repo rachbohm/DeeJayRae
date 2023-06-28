@@ -37,7 +37,6 @@ export default function SongForm() {
     setErrors([]);
 
     if (showNewAlbumForm) {
-      console.log('in showNewAlbumFor if statement')
       const albumPayload = {
         title: newAlbumTitle,
         description: newAlbumDescription,
@@ -45,9 +44,7 @@ export default function SongForm() {
       }
       await dispatch(createAlbumThunk(albumPayload))
         .then((response) => {
-        console.log('response',response)
         setAlbumId(response.id);
-        console.log('albumId set to', albumId)
       });
     };
 
