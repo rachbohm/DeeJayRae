@@ -2,7 +2,7 @@ import { createSongThunk } from "../../store/songs";
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { loadAllAlbumsThunk } from "../../store/albums";
+import { createAlbumThunk, loadAllAlbumsThunk } from "../../store/albums";
 import './SongForm.css';
 
 export default function SongForm() {
@@ -23,6 +23,11 @@ export default function SongForm() {
   const [imageUrl, setImageUrl] = useState('https://png.pngtree.com/png-clipart/20221006/original/pngtree-music-notes-png-image_8660757.png');
   const [albumId, setAlbumId] = useState('');
   const [audioFile, setAudioFile] = useState(null);
+  const [newAlbumTitle, setNewAlbumTitle] = useState('');
+  const [newAlbumDescription, setNewAlbumDescription] = useState('');
+  const [newAlbumImageUrl, setNewAlbumImageUrl] = useState('');
+  const [showNewAlbumForm, setShowNewAlbumForm] = useState(false);
+
 
   const [errors, setErrors] = useState([]);
 
@@ -30,6 +35,25 @@ export default function SongForm() {
     e.preventDefault();
 
     setErrors([]);
+
+    const albumPayload = {}
+    if (showNewAlbumForm) {
+      albumPayload = {
+        title: newAlbumTitle,
+        description: newAlbumDescription,
+        imageUrl: newAlbumImageUrl
+      }
+    };
+
+    const albumResponse = await dispatch(createAlbumThunk(albumPayload));
+    const { albumId: createdAlbumId } = albumResponse.data;
+
+    if (albumResponse.errors) {
+      setErrors(albumResponse.errors);
+      return;
+    }
+
+    setAlbumId(createdAlbumId);
 
     const payload = {
       title,
@@ -59,13 +83,19 @@ export default function SongForm() {
     if (file) setAudioFile(file);
   };
 
+  const handleAlbumChange = (e) => {
+    const selectedAlbumId = e.target.value;
+    setAlbumId(selectedAlbumId);
+    setShowNewAlbumForm(selectedAlbumId === 'other')
+  }
+
   return sessionUser.id && isLoaded ? (
     <div className="add-song-container">
       {errors.length > 0 && errors.map((error, i) => (
         <div key={i} className="error-message">{error}</div>
       ))}
       <form className="add-song-form" onSubmit={handleSubmit}>
-        <label className="add-song-label">Create New Song</label>
+        <label className="add-playlist-title">Create New Song!</label>
         <div className="input-container">
           <label htmlFor="title" className="input-label">
             Song Title
@@ -115,10 +145,11 @@ export default function SongForm() {
             id="album"
             className="add-song-input"
             value={albumId}
-            onChange={(e) => setAlbumId(e.target.value)}
+            onChange={handleAlbumChange}
             required={true}
           >
             <option value="">Select an album</option>
+            <option value='other'>Other</option>
             {albumsArr.map((album) => (
               <option key={album.id} value={album.id}>
                 {album.title}
@@ -126,6 +157,49 @@ export default function SongForm() {
             ))}
           </select>
         </div>
+        {showNewAlbumForm && (
+          <div className="new-album-form">
+            <div className='input-container'>
+              <label className='input-label'>
+                Album Title
+              </label>
+              <input
+                type="text"
+                className='add-song-input'
+                value={newAlbumTitle}
+                onChange={(e) => setNewAlbumTitle(e.target.value)}
+                placeholder="Enter album title"
+                require={true}
+              />
+            </div>
+            <div className='input-container'>
+              <label className='input-label'>
+                Album Description
+              </label>
+              <input
+                type="text"
+                className='add-song-input'
+                value={newAlbumDescription}
+                onChange={(e) => setNewAlbumDescription(e.target.value)}
+                placeholder="Enter a description"
+                require={true}
+              />
+            </div>
+            <div className='input-container'>
+              <label className='input-label'>
+                Album Image URL
+              </label>
+              <input
+                type="text"
+                className='add-song-input'
+                value={newAlbumImageUrl}
+                onChange={(e) => setNewAlbumImageUrl(e.target.value)}
+                placeholder="Enter album image URL"
+                require={true}
+              />
+            </div>
+          </div>
+        )}
         <div className="input-container">
           <label htmlFor="audioFile" className="input-label">
             Audio File
