@@ -53,6 +53,13 @@
   margin-top: 20px;
 }
 
+@media screen and (max-width: 1050px){
+  .playlist-list {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .playlist-cards {
   display: flex;
   flex-direction: column;
