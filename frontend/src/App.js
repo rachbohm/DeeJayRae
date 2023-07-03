@@ -56,8 +56,8 @@ function App() {
             <About />
           </Route>
           <Route exact path="/playlists/:playlistId">
-            <About />
             <PlaylistDetail />
+            <About />
           </Route>
           <Route exact path="/playlists">
             <PlaylistList />
