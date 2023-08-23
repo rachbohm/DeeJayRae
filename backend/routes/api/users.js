@@ -40,7 +40,7 @@ router.post(
   validateSignup,
   asyncHandler(async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
-    let profileImageUrl = "https://storroom.com/wp-content/uploads/2019/02/default-user.png"
+    let profileImageUrl = "https://rachelsongbucket.s3.us-east-2.amazonaws.com/default-image.png"
     if (req.file) {
       profileImageUrl = await singlePublicFileUpload(req.file);
     }

@@ -20,7 +20,7 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password'),
         firstName: "Demo",
         lastName: "User",
-        profileImageUrl: "https://storroom.com/wp-content/uploads/2019/02/default-user.png"
+        profileImageUrl: "https://rachelsongbucket.s3.us-east-2.amazonaws.com/default-image.png"
       },
       {
         email: 'user1@user.io',
@@ -28,7 +28,7 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password2'),
         firstName: "Cat",
         lastName: "Stevens",
-        profileImageUrl: "pretty@pic.com"
+        profileImageUrl: "https://rachelsongbucket.s3.us-east-2.amazonaws.com/default-image.png"
       },
       {
         email: 'user2@user.io',
@@ -36,7 +36,7 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password3'),
         firstName: 'They Might',
         lastName: "Be Giants",
-        profileImageUrl: "pretty@pic.com"
+        profileImageUrl: "https://rachelsongbucket.s3.us-east-2.amazonaws.com/default-image.png"
       },
       {
         email: 'user3@user.io',
@@ -44,7 +44,7 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password3'),
         firstName: 'Extreme',
         lastName: "The Band",
-        profileImageUrl: "pretty@pic.com"
+        profileImageUrl: "https://rachelsongbucket.s3.us-east-2.amazonaws.com/default-image.png"
       },
       {
         email: 'user4@user.io',
@@ -52,7 +52,7 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password3'),
         firstName: 'Peter',
         lastName: "Cetera",
-        profileImageUrl: "pretty@pic.com"
+        profileImageUrl: "https://rachelsongbucket.s3.us-east-2.amazonaws.com/default-image.png"
       }
     ], {});
   },

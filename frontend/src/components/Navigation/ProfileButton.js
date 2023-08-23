@@ -63,7 +63,7 @@ function ProfileButton({ user }) {
         <ul className="profile-dropdown">
           <li className="profile-info">{user.username}</li>
           <li className="profile-info">{user.email}</li>
-          <img className="profile-image" src={user.profileImageUrl ? user.profileImageUrl : "https://storroom.com/wp-content/uploads/2019/02/default-user.png"} alt="Profile" />
+          <img className="profile-image" src={user.profileImageUrl} alt="Profile" />
           {/* <NavLink className="change-profile-pic" to="/profile">Change Profile Picture</NavLink> */}
           <div className="song-list">
             <span className="song-list-title">My Songs:</span>
